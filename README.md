@@ -227,28 +227,6 @@ plot_roccurve(X_test_sc, y_test)
 
 <img src="images/multi_roc.png" width="600" height="400">
 
-
-#### Feature Selection
-
-To realize the feature selection, we have implemented the RANKING procedure!
-1. Sort F-values of the features in descending order
-2. Keep only features stastically significant at the p-value threshold
-3. Return the dataframe with the selected features
-```R
-X_ranking <- gnb$ranking_selection(p_threshold=0.05)
-```
-```
-Ranking features selection procedure started ! 
-Ranking features selection procedure ended ! Features selected: 
- [1] "exng"     "cp"       "oldpeak"  "thalachh" "caa"      "slp"      "thall"    "sex"      "age"      "trtbps"   "restecg" 
-Please, fit again with the new features ! 
-```
-
-To see the results, you should fit again the model with the selected features and explore the performance: 
-```R
-gnb$fit(X_ranking)
-summary(gnb)
-```
 ## Categorical Naïve Bayes
 
 ## Bernouilli Naïve Bayes
