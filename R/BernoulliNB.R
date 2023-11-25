@@ -585,8 +585,8 @@ BernoulliNB <- R6Class("BernoulliNB",
        cat("Labels of classes:", private$classes, "\n")
        cat("Number of features: ", private$p, "\n")
        cat("Number of observations in the training sample: ", private$n, "\n")
-       cat("Logarithm of the prior probabilities for each class: \n")
-       prior <- private$class_log_prior
+       cat("Prior probabilities for each class: \n")
+       prior <- exp(private$class_log_prior)
        names(prior) <- private$classes
        print(prior)
        cat("\n")
@@ -628,11 +628,7 @@ BernoulliNB <- R6Class("BernoulliNB",
           error_train = private$error_train,
           conf_error_train = c(private$li_train, private$ls_train),
           recall_train = private$recall_train,
-          precision_train = private$precision_train,
-          classification_function = list(coef = private$coef,
-                                          intercept  = private$intercept,
-                                          F_value = private$F_value,
-                                          pval = private$feature_pval)
+          precision_train = private$precision_train
         )
 
        # Returns the list without displaying it

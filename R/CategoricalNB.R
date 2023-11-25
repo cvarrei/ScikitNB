@@ -136,16 +136,16 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'
                            #' @export
                            preprocessing_test = function(X){
-                             
+
                              if (all(sapply(X, is.numeric))) {
                                stop("All the explanatory variables are numerical, better use the object 'GaussianNB'.")
                              }
-                             
+
                              # Deletion of single-valued columns
                              for(col in private$my_vector_unique_value){
                                X <- X[, !(names(X) %in% c(col))]
                              }
-                             
+
                              # For each numeric column
                              cpt = 1
                              for (i in 1:ncol(X)) {
@@ -458,6 +458,10 @@ CategoricalNB <- R6Class("CategoricalNB",
                              cat("Number of features: ", private$my_p, "\n")
                              cat("Number of observations in the validation sample: ", private$my_n_observations, "\n")
                              cat("\n")
+                             cat("Prior for each class: \n")
+                             prior <- private$my_model$class_probs
+                             names(prior) <- private$classes
+                             print(prior)
 
                              cat("CLASSIFIER PERFORMANCES ---------------------------------------")
                              cat("\n")
@@ -494,6 +498,23 @@ CategoricalNB <- R6Class("CategoricalNB",
                              print(combined_matrix)
                              cat("\n")
                              cat("\n")
+
+                             #Create a list to extract the results by calling the function
+                             results_summary <- list(
+                               n_classes = private$my_k_class,
+                               label_classes = private$my_class,
+                               prior = prior,
+                               features = private$my_p,
+                               n = private$my_n_observations,
+                               cm_train = private$my_cm,
+                               error_train = private$my_error,
+                               conf_error_train = c(private$my_li, private$my_ls),
+                               recall_train = diag(private$my_cm)/rowSums(private$my_cm),
+                               precision_train = diag(private$my_cm)/colSums(private$my_cm)
+                             )
+
+                             # Returns the list without displaying it
+                             invisible(results_summary)
                            },
 
                            #' Evaluate Performance of Categorical Naive Bayes Classifier
