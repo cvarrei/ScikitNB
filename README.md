@@ -40,7 +40,7 @@ Three datasets are included within the package in order to test the different mo
 To import a dataset, use the function : 
 
 ```R
-dataset("mixed")
+dataset(mixed)
 ```
 
 ## GaussianNB: Gaussian Naïve Bayes Classifier
