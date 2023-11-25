@@ -43,11 +43,11 @@ AFDM <- R6Class("AFDM",
                   #'
                   #' @examples
                   #' # Example usage with automatic component selection
-                  #' data <- data.frame(a = rnorm(100), b = rnorm(100))
-                  #' transformed_data <- afdm$fit_transform(data)
+                  #' df <- data.frame(a = rnorm(100), b = rnorm(100))
+                  #' transformed_data <- afdm$fit_transform(df)
                   #'
                   #' # Example usage with specified number of components
-                  #' transformed_data <- afdm$fit_transform(data, n_compon = 5)
+                  #' transformed_data <- afdm$fit_transform(df, n_compon = 5)
                   #'
                   #' @export
                   fit_transform = function(X_df, n_compon=NULL){

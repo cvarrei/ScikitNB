@@ -33,7 +33,7 @@ GaussianNB <- R6Class("GaussianNB",
                           private$n_cores <- n_cores # Number of cores chosen
 
                           if (verbose == T){
-                            cat("The Gaussian Naïve Bayes Classifier has been correctly instanciated. \n")
+                            cat("The Gaussian Naive Bayes Classifier has been correctly instanciated. \n")
                             cat(paste0("The calculation will be distributed on ", private$n_cores, " cores."))
                             cat("\n")
                             cat("\n")
@@ -67,7 +67,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'          applying FAMD via the inherited `AFDM` class.
                         #'
                         #' @examples
-                        #' # Assuming `X_train` and `y_train` are your explanatory and target variables respectively
+                        #' # Assuming'X_train' and 'y_train' are your explanatory and target variables respectively
                         #'
                         #' X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
                         #'
@@ -147,12 +147,12 @@ GaussianNB <- R6Class("GaussianNB",
                         #'         a transformation is applied without retraining the model.
                         #'         For purely numerical data, it returns the dataset.
                         #'
-                        #' @details The function checks the type of variables in `X_test` and applies the appropriate
-                        #'          preprocessing. For mixed data, it uses the `coord_supplementaries` method
+                        #' @details The function checks the type of variables in 'X_test' and applies the appropriate
+                        #'          preprocessing. For mixed data, it uses the 'coord_supplementaries'method
                         #'          from the inherited AFDM class to transform the data without additional training.
                         #'
                         #' @examples
-                        #' # Assuming `X_test` is your test dataset
+                        #' # Assuming 'X_test' is your test dataset
                         #'
                         #' X_test_sc <- gaussian_nb$preprocessing_test(X_test)
                         #'
@@ -191,7 +191,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'          These metrics are stored in the model's private fields.
                         #'
                         #' @examples
-                        #' # Assuming `X_train_sc` is your preprocessed training dataset
+                        #' # Assuming 'X_train_sc' is your preprocessed training dataset
                         #'
                         #' gaussian_nb$fit(X_train_sc)
                         #'
@@ -337,7 +337,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'          predicted probabilities.
                         #'
                         #' @examples
-                        #' # Assuming `X_test_sc` is your preprocessed test dataset
+                        #' # Assuming 'X_test_sc' is your preprocessed test dataset
                         #' # Ensure that the model has been trained using fit method
                         #'
                         #' y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
@@ -405,7 +405,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #'
                         #' @examples
-                        #' # Assuming `X_test_sc` is your preprocessed test dataset
+                        #' # Assuming 'X_test_sc' is your preprocessed test dataset
                         #'
                         #' log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
                         #'
@@ -462,14 +462,14 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @return A matrix of posterior probabilities, where each row corresponds to an observation
                         #'         and each column to a class. These probabilities are derived from the log probabilities
-                        #'         computed by the `predict_log_proba` method.
+                        #'         computed by the 'predict_log_proba' method.
                         #'
                         #' @details The method first checks if the model has been trained.
-                        #'          It then calls the `predict_log_proba` method to obtain the log probabilities
+                        #'          It then calls the 'predict_log_proba' method to obtain the log probabilities
                         #'          and applies the exponential function to these values to get the posterior probabilities.
                         #'
                         #' @examples
-                        #' # Assuming `X_test_sc` is your preprocessed test dataset
+                        #' # Assuming 'X_test_sc' is your preprocessed test dataset
                         #'
                         #' probs <- gaussian_nb$predict_proba(X_test_sc)
                         #'
@@ -506,7 +506,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'          The results are returned as a list and can optionally be printed in detail.
                         #'
                         #' @examples
-                        #' # Assuming `X_test` and `y_test` are your test dataset and labels
+                        #' # Assuming 'X_test' and 'y_test' are your test dataset and labels
                         #' # Ensure that the model has been trained using fit method
                         #'
                         #' results <- gaussian_nb$score(X_test, y_test)
@@ -727,7 +727,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' This method creates a visual representation of the confusion matrix for the test dataset
                         #' using the Gaussian Naive Bayes Classifier. It allows selection between class label prediction
-                        #' based on linear combination (`comblin`) or probabilities (`proba`).
+                        #' based on linear combination ('comblin') or probabilities ('proba').
                         #'
                         #' @param X A dataframe containing the test set explanatory variables.
                         #' @param y_test A vector containing the actual class labels of the test set.
@@ -736,12 +736,12 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @details The method first checks if the model has been trained.
                         #'          It then predicts the class labels for the test set using the specified prediction type
-                        #'          and constructs a confusion matrix. This matrix is visualized using the `corrplot` package,
+                        #'          and constructs a confusion matrix. This matrix is visualized using the 'corrplot' package,
                         #'          with a color gradient representing the frequency of each cell in the matrix. The method
                         #'          handles missing classes by adding zero-filled columns to ensure a complete matrix.
                         #'
                         #' @examples
-                        #' # Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+                        #' # Assuming 'X_test_sc' and 'y_test' are your preprocessed test dataset and actual labels
                         #'
                         #' gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
                         #'
@@ -797,8 +797,8 @@ GaussianNB <- R6Class("GaussianNB",
                         #'          has been trained before generating the ROC curve.
                         #'
                         #' @examples
-                        #' # Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
-                        #'  This is the case of a binary classification
+                        #' # Assuming 'X_test_sc' and 'y_test' are your preprocessed test dataset and actual labels
+                        #' # This is the case of a binary classification
                         #'
                         #' gaussian_nb$plot_roccurve(X_test_sc, y_test, positive = "YourPositiveClassLabel")
                         #'

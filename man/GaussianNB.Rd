@@ -22,7 +22,7 @@ gaussian_nb <- GaussianNB$new(n_cores = 2)
 ## Method `GaussianNB$preprocessing_train`
 ## ------------------------------------------------
 
-# Assuming `X_train` and `y_train` are your explanatory and target variables respectively
+# Assuming'X_train' and 'y_train' are your explanatory and target variables respectively
 
 X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 
@@ -31,7 +31,7 @@ X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 ## Method `GaussianNB$preprocessing_test`
 ## ------------------------------------------------
 
-# Assuming `X_test` is your test dataset
+# Assuming 'X_test' is your test dataset
 
 X_test_sc <- gaussian_nb$preprocessing_test(X_test)
 
@@ -40,7 +40,7 @@ X_test_sc <- gaussian_nb$preprocessing_test(X_test)
 ## Method `GaussianNB$fit`
 ## ------------------------------------------------
 
-# Assuming `X_train_sc` is your preprocessed training dataset
+# Assuming 'X_train_sc' is your preprocessed training dataset
 
 gaussian_nb$fit(X_train_sc)
 
@@ -49,7 +49,7 @@ gaussian_nb$fit(X_train_sc)
 ## Method `GaussianNB$predict`
 ## ------------------------------------------------
 
-# Assuming `X_test_sc` is your preprocessed test dataset
+# Assuming 'X_test_sc' is your preprocessed test dataset
 # Ensure that the model has been trained using fit method
 
 y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
@@ -59,7 +59,7 @@ y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
 ## Method `GaussianNB$predict_log_proba`
 ## ------------------------------------------------
 
-# Assuming `X_test_sc` is your preprocessed test dataset
+# Assuming 'X_test_sc' is your preprocessed test dataset
 
 log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 
@@ -68,7 +68,7 @@ log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 ## Method `GaussianNB$predict_proba`
 ## ------------------------------------------------
 
-# Assuming `X_test_sc` is your preprocessed test dataset
+# Assuming 'X_test_sc' is your preprocessed test dataset
 
 probs <- gaussian_nb$predict_proba(X_test_sc)
 
@@ -77,7 +77,7 @@ probs <- gaussian_nb$predict_proba(X_test_sc)
 ## Method `GaussianNB$score`
 ## ------------------------------------------------
 
-# Assuming `X_test` and `y_test` are your test dataset and labels
+# Assuming 'X_test' and 'y_test' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 
 results <- gaussian_nb$score(X_test, y_test)
@@ -113,7 +113,7 @@ summary(gaussian_nb)
 ## Method `GaussianNB$plot_confusionmatrix`
 ## ------------------------------------------------
 
-# Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+# Assuming 'X_test_sc' and 'y_test' are your preprocessed test dataset and actual labels
 
 gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
 
@@ -122,8 +122,8 @@ gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
 ## Method `GaussianNB$plot_roccurve`
 ## ------------------------------------------------
 
-# Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
- This is the case of a binary classification
+# Assuming 'X_test_sc' and 'y_test' are your preprocessed test dataset and actual labels
+# This is the case of a binary classification
 
 gaussian_nb$plot_roccurve(X_test_sc, y_test, positive = "YourPositiveClassLabel")
 
@@ -237,7 +237,7 @@ A preprocessed dataframe suitable for training the Gaussian Naive Bayes Classifi
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_train` and `y_train` are your explanatory and target variables respectively
+\preformatted{# Assuming'X_train' and 'y_train' are your explanatory and target variables respectively
 
 X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 
@@ -263,8 +263,8 @@ X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-The function checks the type of variables in `X_test` and applies the appropriate
-         preprocessing. For mixed data, it uses the `coord_supplementaries` method
+The function checks the type of variables in 'X_test' and applies the appropriate
+         preprocessing. For mixed data, it uses the 'coord_supplementaries'method
          from the inherited AFDM class to transform the data without additional training.
 }
 
@@ -276,7 +276,7 @@ A preprocessed dataframe suitable for making predictions with the Gaussian Naive
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test` is your test dataset
+\preformatted{# Assuming 'X_test' is your test dataset
 
 X_test_sc <- gaussian_nb$preprocessing_test(X_test)
 
@@ -317,7 +317,7 @@ The method does not return anything but updates the model's internal state
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_train_sc` is your preprocessed training dataset
+\preformatted{# Assuming 'X_train_sc' is your preprocessed training dataset
 
 gaussian_nb$fit(X_train_sc)
 
@@ -358,7 +358,7 @@ A vector of predicted class labels for each observation in the test dataset.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test_sc` is your preprocessed test dataset
+\preformatted{# Assuming 'X_test_sc' is your preprocessed test dataset
 # Ensure that the model has been trained using fit method
 
 y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
@@ -399,7 +399,7 @@ A matrix of log probabilities, where each row corresponds to an observation
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test_sc` is your preprocessed test dataset
+\preformatted{# Assuming 'X_test_sc' is your preprocessed test dataset
 
 log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 
@@ -426,18 +426,18 @@ log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 }
 \subsection{Details}{
 The method first checks if the model has been trained.
-         It then calls the `predict_log_proba` method to obtain the log probabilities
+         It then calls the 'predict_log_proba' method to obtain the log probabilities
          and applies the exponential function to these values to get the posterior probabilities.
 }
 
 \subsection{Returns}{
 A matrix of posterior probabilities, where each row corresponds to an observation
         and each column to a class. These probabilities are derived from the log probabilities
-        computed by the `predict_log_proba` method.
+        computed by the 'predict_log_proba' method.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test_sc` is your preprocessed test dataset
+\preformatted{# Assuming 'X_test_sc' is your preprocessed test dataset
 
 probs <- gaussian_nb$predict_proba(X_test_sc)
 
@@ -482,7 +482,7 @@ A list containing the confusion matrix, error rate, 95% confidence interval for 
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test` and `y_test` are your test dataset and labels
+\preformatted{# Assuming 'X_test' and 'y_test' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 
 results <- gaussian_nb$score(X_test, y_test)
@@ -581,14 +581,14 @@ combination based classification, 'proba' for probability based classification.}
 \subsection{Details}{
 The method first checks if the model has been trained.
          It then predicts the class labels for the test set using the specified prediction type
-         and constructs a confusion matrix. This matrix is visualized using the `corrplot` package,
+         and constructs a confusion matrix. This matrix is visualized using the 'corrplot' package,
          with a color gradient representing the frequency of each cell in the matrix. The method
          handles missing classes by adding zero-filled columns to ensure a complete matrix.
 }
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+\preformatted{# Assuming 'X_test_sc' and 'y_test' are your preprocessed test dataset and actual labels
 
 gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
 
@@ -627,8 +627,8 @@ For multi-class classification (more than two classes), the method generates a O
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
- This is the case of a binary classification
+\preformatted{# Assuming 'X_test_sc' and 'y_test' are your preprocessed test dataset and actual labels
+# This is the case of a binary classification
 
 gaussian_nb$plot_roccurve(X_test_sc, y_test, positive = "YourPositiveClassLabel")
 

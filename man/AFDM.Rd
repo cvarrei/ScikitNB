@@ -23,11 +23,11 @@ afdm <- AFDM$new()
 ## ------------------------------------------------
 
 # Example usage with automatic component selection
-data <- data.frame(a = rnorm(100), b = rnorm(100))
-transformed_data <- afdm$fit_transform(data)
+df <- data.frame(a = rnorm(100), b = rnorm(100))
+transformed_data <- afdm$fit_transform(df)
 
 # Example usage with specified number of components
-transformed_data <- afdm$fit_transform(data, n_compon = 5)
+transformed_data <- afdm$fit_transform(df, n_compon = 5)
 
 
 ## ------------------------------------------------
@@ -165,11 +165,11 @@ A dataframe containing the coordinates of individuals on the retained components
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Example usage with automatic component selection
-data <- data.frame(a = rnorm(100), b = rnorm(100))
-transformed_data <- afdm$fit_transform(data)
+df <- data.frame(a = rnorm(100), b = rnorm(100))
+transformed_data <- afdm$fit_transform(df)
 
 # Example usage with specified number of components
-transformed_data <- afdm$fit_transform(data, n_compon = 5)
+transformed_data <- afdm$fit_transform(df, n_compon = 5)
 
 }
 \if{html}{\out{</div>}}

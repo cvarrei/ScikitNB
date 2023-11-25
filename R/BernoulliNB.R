@@ -16,8 +16,8 @@ BernoulliNB <- R6Class("BernoulliNB",
     #' @param verbose A logical value indicating whether to print detailed messages
     #'        about the initialization process. Default is TRUE.
     #'
-    #' @details If the specified number of cores (`n_cores`) exceeds the number of available cores,
-    #'          the function throws an error. When `verbose` is TRUE, the function prints
+    #' @details If the specified number of cores (n_cores) exceeds the number of available cores,
+    #'          the function throws an error. When verbose is TRUE, the function prints
     #'          instructions on the console for preprocessing and using the classifier.
     #'          This constructor allows you to create an instance of your BernoulliNB class with
     #'          specified parameters.
@@ -80,7 +80,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          a binary bag-of-words. It returns the bag-of-words as a sparse matrix.
     #'
     #' @examples
-    #' # Assuming `X_train` and `X_test` are your explanatory and target variables respectively
+    #' # Assuming 'X_train' and 'X_test' are your explanatory and target variables respectively
     #'
     #' bernoulli_nb <- BernoulliNB$new(n_cores = 2)
     #' preprocess_X = bernoulli_nb$preprocess(X_train, X_test)
@@ -150,7 +150,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          parameters.
     #'
     #' @examples
-    #' # Assuming `X_train_vectorized` is your preprocessed training dataset
+    #' # Assuming 'X_train_vectorized' is your preprocessed training dataset
     #'
     #' bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
     #' bernoulli_nb$fit(X_train_vectorized, y_train)
@@ -220,7 +220,7 @@ BernoulliNB <- R6Class("BernoulliNB",
 
       # -------------------- update some model attributes ----------------------------
       private$is_fitted = TRUE
-      private$k <- length(private$class_count) # Le nombre de classes à prédire
+      private$k <- length(private$class_count) # The number of classes to predict
       private$n = nrow(X)
       features = colnames(private$feature_log_prob)
       X = X[, features]
@@ -256,7 +256,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'
     #'
     #' @examples
-    #' # Assuming `X` is your vectorized test dataset
+    #' # Assuming 'X' is your vectorized test dataset
     #' jll <- bernoulli_nb$joint_log_likelihood(X)
     #'
     #' @export
@@ -302,7 +302,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          the predicted classes.
     #'
     #' @examples
-    #' # Assuming `X` is your vectorized test dataset
+    #' # Assuming 'X' is your vectorized test dataset
     #' # Ensure that the model has been trained using fit method
     #' y_pred <- bernoulli_nb$predict(X)
     #'
@@ -346,7 +346,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          the jll by the marginal probability P(x), and calculates and return the log_probabilities.
     #'
     #' @examples
-    #' # Assuming `X` is your vectorized test dataset
+    #' # Assuming 'X' is your vectorized test dataset
     #' log_probs <- bernoulli_nb$predict_log_proba(X)
     #'
     #' @export
@@ -371,10 +371,10 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'
     #' @return A matrix of posterior probabilities, where each row corresponds to an observation
     #'         and each column to a class. These probabilities are derived from the log probabilities
-    #'         computed by the `predict_log_proba` method.
+    #'         computed by the 'predict_log_proba' method.
     #'
     #' @details The method first checks if the model has been trained.
-    #'          It then calls the `predict_log_proba` method to obtain the log probabilities
+    #'          It then calls the 'predict_log_proba' method to obtain the log probabilities
     #'          and applies the exponential function to these values to get the posterior probabilities.
     #'
     #' @examples
@@ -409,7 +409,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          for the error rate. The results are returned as a list and can optionally be printed in detail.
     #'
     #' @examples
-    #' # Assuming `X` and `y` are your test dataset and labels
+    #' # Assuming 'X' and 'y' are your test dataset and labels
     #' # Ensure that the model has been trained using fit method
     #' results <- bernoulli_nb$score(X, y)
     #'
@@ -490,7 +490,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          for the error rate.
     #'
     #' @examples
-    #' # Assuming `X_test` and `y_test` are your test dataset and labels
+    #' # Assuming 'X_test' and 'y_test' are your test dataset and labels
     #' # Ensure that the model has been trained using fit method
     #' results <- bernoulli_nb$score(X_test, y_test)
     #'
@@ -597,7 +597,7 @@ BernoulliNB <- R6Class("BernoulliNB",
        print(private$cm_train)
        cat("\n")
        cat("\n")
-       cat(paste0("Taux d'erreur = ", round(private$error_train, 3), " [",round(private$li_train,3),";",round(private$ls_train,3),"] à 95%"))
+       cat(paste0("Error Rate = ", round(private$error_train, 3), " [",round(private$li_train,3),";",round(private$ls_train,3),"] at 95%CI"))
        cat("\n")
        cat("Recall : \n")
        print(round(private$recall_train,2))
@@ -617,26 +617,26 @@ BernoulliNB <- R6Class("BernoulliNB",
          print(features)
        }
 
-       # Create a list to extract the results by calling the function
-       # results_summary <- list(
-       #   n_classes = private$k,
-       #   label_classes = private$class,
-       #   prior = private$class_log_prior,
-       #   features = private$p,
-       #   n = private$n,
-       #   cm_train = private$cm_train,
-       #   error_train = private$error_train,
-       #   conf_error_train = c(private$li_train, private$ls_train),
-       #   recall_train = private$recall_train,
-       #   precision_train = private$precision_train
-       #   # classification_function = list(coef = private$coef,
-       #   #                                intercept  = private$intercept,
-       #   #                                F_value = private$F_value,
-       #   #                                pval = private$feature_pval)
-       # )
+       #Create a list to extract the results by calling the function
+        results_summary <- list(
+          n_classes = private$k,
+          label_classes = private$class,
+          prior = private$class_log_prior,
+          features = private$p,
+          n = private$n,
+          cm_train = private$cm_train,
+          error_train = private$error_train,
+          conf_error_train = c(private$li_train, private$ls_train),
+          recall_train = private$recall_train,
+          precision_train = private$precision_train,
+          classification_function = list(coef = private$coef,
+                                          intercept  = private$intercept,
+                                          F_value = private$F_value,
+                                          pval = private$feature_pval)
+        )
 
        # Returns the list without displaying it
-       # invisible(results_summary)
+        invisible(results_summary)
       },
 
     #' Generate ROC Curve for Bernoulli Naive Bayes Classifier
@@ -655,8 +655,8 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          has been trained before generating the ROC curve.
     #'
     #' @examples
-    #' # Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
-    #'  This is the case of a binary classification
+    #' # Assuming 'X' and 'y_test' are your preprocessed test dataset and actual labels
+    #' # This is the case of a binary classification
     #'
     #' bernoulli_nb$plot_roccurve(X, y_test, positive = "YourPositiveClassLabel")
     #'
@@ -790,7 +790,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          handles missing classes by adding zero-filled columns to ensure a complete matrix.
     #'
     #' @examples
-    #' # Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
+    #' # Assuming 'X' and 'y_test' are your preprocessed test dataset and actual labels
     #' bernoulli_nb$plot_confusionmatrix(X, y_test)
     #'
     #' @export
@@ -833,11 +833,11 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'
     #' @details The method first checks if the model has been trained.
     #'          It then predicts the class labels for the test set and constructs a confusion matrix.
-    #'          This matrix is visualized using the `corrplot` package, with a color gradient representing
+    #'          This matrix is visualized using the 'corrplot' package, with a color gradient representing
     #'          the frequency of each cell in the matrix. The method handles missing classes by adding zero-filled columns to ensure a complete matrix.
     #'
     #' @examples
-    #' # Assuming `class` is a specific class from our dataset.
+    #' # Assuming 'class' is a specific class from our dataset.
     #' bernoulli_nb$top_logproba("YourClass")
     #'
     #' @export

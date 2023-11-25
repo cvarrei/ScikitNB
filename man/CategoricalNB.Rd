@@ -22,8 +22,8 @@ catnb <- CategoricalNB$new()
 ## Method `CategoricalNB$preprocessing_train`
 ## ------------------------------------------------
 
-Assuming `X_train` is your explanatory variables
-and `y_train` the target variable.
+Assuming 'X_train' is your explanatory variables
+and 'y_train' the target variable.
 catNB <- CategoricalNB$new()
 list_catNB <- catNB$preprocessing_train(X_train,y_train)
 X_train_d <- list_catNB[[1]]
@@ -34,7 +34,7 @@ y_train <- list_catNB[[2]]
 ## Method `CategoricalNB$preprocessing_test`
 ## ------------------------------------------------
 
-Assuming `X_test` is your explanatory variables
+Assuming 'X_test' is your explanatory variables
 
 X_test_d <- catNB$preprocessing_test(X_test)
 
@@ -43,8 +43,8 @@ X_test_d <- catNB$preprocessing_test(X_test)
 ## Method `CategoricalNB$fit`
 ## ------------------------------------------------
 
-Assuming `X_train` is your preprocessed training dataset
-and `y_train`is your training target.
+Assuming 'X_train' is your preprocessed training dataset
+and 'y_train'is your training target.
 
 catNB$fit(X_train, y_train)
 
@@ -53,7 +53,7 @@ catNB$fit(X_train, y_train)
 ## Method `CategoricalNB$predict`
 ## ------------------------------------------------
 
-Assuming `X_test` is your preprocessed test dataset
+Assuming 'X_test' is your preprocessed test dataset
 Ensure that the model has been trained using fit method
 
 y_pred <- catnb$predict(X_test)
@@ -63,7 +63,7 @@ y_pred <- catnb$predict(X_test)
 ## Method `CategoricalNB$predict_log_proba`
 ## ------------------------------------------------
 
-Assuming `X_test` is your preprocessed test dataset
+Assuming 'X_test' is your preprocessed test dataset
 logs_probas <- catnb$predict_log_proba(X_test)
 
 
@@ -71,7 +71,7 @@ logs_probas <- catnb$predict_log_proba(X_test)
 ## Method `CategoricalNB$predict_proba`
 ## ------------------------------------------------
 
-Assuming `X_test` is your preprocessed test dataset
+Assuming 'X_test' is your preprocessed test dataset
 probas <- catnb$predict_proba(X_test)
 
 
@@ -105,7 +105,7 @@ summary(catnb)
 ## Method `CategoricalNB$score`
 ## ------------------------------------------------
 
-# Assuming `X_test` and `y_test` are your test dataset and labels
+# Assuming 'X_test' and 'y_test' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 
 results <- catnb$score(X_test, y_test)
@@ -115,7 +115,7 @@ results <- catnb$score(X_test, y_test)
 ## Method `CategoricalNB$plot_confusionmatrix`
 ## ------------------------------------------------
 
-# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+# Assuming 'X_test' and 'y_test' are your preprocessed test dataset and actual labels
 
 catnb$plot_confusionmatrix(X_test, y_test)
 
@@ -124,7 +124,7 @@ catnb$plot_confusionmatrix(X_test, y_test)
 ## Method `CategoricalNB$plot_roccurve`
 ## ------------------------------------------------
 
-# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+# Assuming 'X_test' and 'y_test' are your preprocessed test dataset and actual labels
 # This is the case of a binary classification
 
 catnb$plot_roccurve(X_test, y_test, positive = "YourPositiveClassLabel")
@@ -217,8 +217,8 @@ A list containing the discretized variables and the y variable.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{Assuming `X_train` is your explanatory variables
-and `y_train` the target variable.
+\preformatted{Assuming 'X_train' is your explanatory variables
+and 'y_train' the target variable.
 catNB <- CategoricalNB$new()
 list_catNB <- catNB$preprocessing_train(X_train,y_train)
 X_train_d <- list_catNB[[1]]
@@ -257,7 +257,7 @@ The discretized dataframe.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{Assuming `X_test` is your explanatory variables
+\preformatted{Assuming 'X_test' is your explanatory variables
 
 X_test_d <- catNB$preprocessing_test(X_test)
 
@@ -293,8 +293,8 @@ The method does not return anything but updates the model's internal state
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{Assuming `X_train` is your preprocessed training dataset
-and `y_train`is your training target.
+\preformatted{Assuming 'X_train' is your preprocessed training dataset
+and 'y_train'is your training target.
 
 catNB$fit(X_train, y_train)
 
@@ -324,7 +324,7 @@ The prediction as a dataframe.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{Assuming `X_test` is your preprocessed test dataset
+\preformatted{Assuming 'X_test' is your preprocessed test dataset
 Ensure that the model has been trained using fit method
 
 y_pred <- catnb$predict(X_test)
@@ -356,7 +356,7 @@ A matrix of log probabilities, where each row corresponds to an observation
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{Assuming `X_test` is your preprocessed test dataset
+\preformatted{Assuming 'X_test' is your preprocessed test dataset
 logs_probas <- catnb$predict_log_proba(X_test)
 
 }
@@ -385,7 +385,7 @@ The dataframe which contains the probabilities.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{Assuming `X_test` is your preprocessed test dataset
+\preformatted{Assuming 'X_test' is your preprocessed test dataset
 probas <- catnb$predict_proba(X_test)
 
 }
@@ -493,7 +493,7 @@ A list containing the confusion matrix, error rate, 95% confidence interval for 
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test` and `y_test` are your test dataset and labels
+\preformatted{# Assuming 'X_test' and 'y_test' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 
 results <- catnb$score(X_test, y_test)
@@ -531,7 +531,7 @@ The method first checks if the model has been trained.
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+\preformatted{# Assuming 'X_test' and 'y_test' are your preprocessed test dataset and actual labels
 
 catnb$plot_confusionmatrix(X_test, y_test)
 
@@ -570,7 +570,7 @@ For multi-class classification (more than two classes), the method generates a O
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+\preformatted{# Assuming 'X_test' and 'y_test' are your preprocessed test dataset and actual labels
 # This is the case of a binary classification
 
 catnb$plot_roccurve(X_test, y_test, positive = "YourPositiveClassLabel")

@@ -22,7 +22,7 @@ bernoulli_nb <- BernoulliNB$new(n_cores = 2)
 ## Method `BernoulliNB$preprocess`
 ## ------------------------------------------------
 
-# Assuming `X_train` and `X_test` are your explanatory and target variables respectively
+# Assuming 'X_train' and 'X_test' are your explanatory and target variables respectively
 
 bernoulli_nb <- BernoulliNB$new(n_cores = 2)
 preprocess_X = bernoulli_nb$preprocess(X_train, X_test)
@@ -34,7 +34,7 @@ X_test_vectorized = preprocess_X[[2]]
 ## Method `BernoulliNB$fit`
 ## ------------------------------------------------
 
-# Assuming `X_train_vectorized` is your preprocessed training dataset
+# Assuming 'X_train_vectorized' is your preprocessed training dataset
 
 bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
 bernoulli_nb$fit(X_train_vectorized, y_train)
@@ -44,7 +44,7 @@ bernoulli_nb$fit(X_train_vectorized, y_train)
 ## Method `BernoulliNB$joint_log_likelihood`
 ## ------------------------------------------------
 
-# Assuming `X` is your vectorized test dataset
+# Assuming 'X' is your vectorized test dataset
 jll <- bernoulli_nb$joint_log_likelihood(X)
 
 
@@ -52,7 +52,7 @@ jll <- bernoulli_nb$joint_log_likelihood(X)
 ## Method `BernoulliNB$predict`
 ## ------------------------------------------------
 
-# Assuming `X` is your vectorized test dataset
+# Assuming 'X' is your vectorized test dataset
 # Ensure that the model has been trained using fit method
 y_pred <- bernoulli_nb$predict(X)
 
@@ -61,7 +61,7 @@ y_pred <- bernoulli_nb$predict(X)
 ## Method `BernoulliNB$predict_log_proba`
 ## ------------------------------------------------
 
-# Assuming `X` is your vectorized test dataset
+# Assuming 'X' is your vectorized test dataset
 log_probs <- bernoulli_nb$predict_log_proba(X)
 
 
@@ -77,7 +77,7 @@ probs <- bernoulli_nb$predict_proba(X)
 ## Method `BernoulliNB$score`
 ## ------------------------------------------------
 
-# Assuming `X` and `y` are your test dataset and labels
+# Assuming 'X' and 'y' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 results <- bernoulli_nb$score(X, y)
 
@@ -86,7 +86,7 @@ results <- bernoulli_nb$score(X, y)
 ## Method `BernoulliNB$performances`
 ## ------------------------------------------------
 
-# Assuming `X_test` and `y_test` are your test dataset and labels
+# Assuming 'X_test' and 'y_test' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 results <- bernoulli_nb$score(X_test, y_test)
 
@@ -121,8 +121,8 @@ summary(bernoulli_nb)
 ## Method `BernoulliNB$plot_roccurve`
 ## ------------------------------------------------
 
-# Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
- This is the case of a binary classification
+# Assuming 'X' and 'y_test' are your preprocessed test dataset and actual labels
+# This is the case of a binary classification
 
 bernoulli_nb$plot_roccurve(X, y_test, positive = "YourPositiveClassLabel")
 
@@ -131,7 +131,7 @@ bernoulli_nb$plot_roccurve(X, y_test, positive = "YourPositiveClassLabel")
 ## Method `BernoulliNB$plot_confusionmatrix`
 ## ------------------------------------------------
 
-# Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
+# Assuming 'X' and 'y_test' are your preprocessed test dataset and actual labels
 bernoulli_nb$plot_confusionmatrix(X, y_test)
 
 
@@ -139,7 +139,7 @@ bernoulli_nb$plot_confusionmatrix(X, y_test)
 ## Method `BernoulliNB$top_logproba`
 ## ------------------------------------------------
 
-# Assuming `class` is a specific class from our dataset.
+# Assuming 'class' is a specific class from our dataset.
 bernoulli_nb$top_logproba("YourClass")
 
 }
@@ -198,8 +198,8 @@ about the initialization process. Default is TRUE.}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-If the specified number of cores (`n_cores`) exceeds the number of available cores,
-         the function throws an error. When `verbose` is TRUE, the function prints
+If the specified number of cores (n_cores) exceeds the number of available cores,
+         the function throws an error. When verbose is TRUE, the function prints
          instructions on the console for preprocessing and using the classifier.
          This constructor allows you to create an instance of your BernoulliNB class with
          specified parameters.
@@ -268,7 +268,7 @@ and test data.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_train` and `X_test` are your explanatory and target variables respectively
+\preformatted{# Assuming 'X_train' and 'X_test' are your explanatory and target variables respectively
 
 bernoulli_nb <- BernoulliNB$new(n_cores = 2)
 preprocess_X = bernoulli_nb$preprocess(X_train, X_test)
@@ -313,7 +313,7 @@ The method does not return anything but updates the model's internal state
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_train_vectorized` is your preprocessed training dataset
+\preformatted{# Assuming 'X_train_vectorized' is your preprocessed training dataset
 
 bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
 bernoulli_nb$fit(X_train_vectorized, y_train)
@@ -351,7 +351,7 @@ A matrix of joint log probabilities, where each row corresponds to an observatio
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X` is your vectorized test dataset
+\preformatted{# Assuming 'X' is your vectorized test dataset
 jll <- bernoulli_nb$joint_log_likelihood(X)
 
 }
@@ -387,7 +387,7 @@ A vector of predicted class labels for each observation in the test dataset.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X` is your vectorized test dataset
+\preformatted{# Assuming 'X' is your vectorized test dataset
 # Ensure that the model has been trained using fit method
 y_pred <- bernoulli_nb$predict(X)
 
@@ -423,7 +423,7 @@ A matrix of log probabilities, where each row corresponds to an observation
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X` is your vectorized test dataset
+\preformatted{# Assuming 'X' is your vectorized test dataset
 log_probs <- bernoulli_nb$predict_log_proba(X)
 
 }
@@ -449,14 +449,14 @@ log_probs <- bernoulli_nb$predict_log_proba(X)
 }
 \subsection{Details}{
 The method first checks if the model has been trained.
-         It then calls the `predict_log_proba` method to obtain the log probabilities
+         It then calls the 'predict_log_proba' method to obtain the log probabilities
          and applies the exponential function to these values to get the posterior probabilities.
 }
 
 \subsection{Returns}{
 A matrix of posterior probabilities, where each row corresponds to an observation
         and each column to a class. These probabilities are derived from the log probabilities
-        computed by the `predict_log_proba` method.
+        computed by the 'predict_log_proba' method.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -500,7 +500,7 @@ A list containing the confusion matrix, error rate, 95% confidence interval for 
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X` and `y` are your test dataset and labels
+\preformatted{# Assuming 'X' and 'y' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 results <- bernoulli_nb$score(X, y)
 
@@ -526,7 +526,7 @@ The method predicts class labels for the train set, constructs a confusion matri
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X_test` and `y_test` are your test dataset and labels
+\preformatted{# Assuming 'X_test' and 'y_test' are your test dataset and labels
 # Ensure that the model has been trained using fit method
 results <- bernoulli_nb$score(X_test, y_test)
 
@@ -629,8 +629,8 @@ For multi-class classification (more than two classes), the method generates a O
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
- This is the case of a binary classification
+\preformatted{# Assuming 'X' and 'y_test' are your preprocessed test dataset and actual labels
+# This is the case of a binary classification
 
 bernoulli_nb$plot_roccurve(X, y_test, positive = "YourPositiveClassLabel")
 
@@ -667,7 +667,7 @@ The method first checks if the model has been trained.
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
+\preformatted{# Assuming 'X' and 'y_test' are your preprocessed test dataset and actual labels
 bernoulli_nb$plot_confusionmatrix(X, y_test)
 
 }
@@ -694,7 +694,7 @@ bernoulli_nb$plot_confusionmatrix(X, y_test)
 \subsection{Details}{
 The method first checks if the model has been trained.
          It then predicts the class labels for the test set and constructs a confusion matrix.
-         This matrix is visualized using the `corrplot` package, with a color gradient representing
+         This matrix is visualized using the 'corrplot' package, with a color gradient representing
          the frequency of each cell in the matrix. The method handles missing classes by adding zero-filled columns to ensure a complete matrix.
 }
 
@@ -703,7 +703,7 @@ A dataframe of the best words and their log_probabiliities
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `class` is a specific class from our dataset.
+\preformatted{# Assuming 'class' is a specific class from our dataset.
 bernoulli_nb$top_logproba("YourClass")
 
 }

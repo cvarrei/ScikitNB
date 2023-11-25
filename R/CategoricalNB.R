@@ -70,8 +70,8 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'          The user will be notified when the summary is displayed.
                            #'
                            #' @examples
-                           #' Assuming `X_train` is your explanatory variables
-                           #' and `y_train` the target variable.
+                           #' Assuming 'X_train' is your explanatory variables
+                           #' and 'y_train' the target variable.
                            #' catNB <- CategoricalNB$new()
                            #' list_catNB <- catNB$preprocessing_train(X_train,y_train)
                            #' X_train_d <- list_catNB[[1]]
@@ -130,17 +130,22 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'         Be careful, you must first preprocess your training sample.
                            #'
                            #' @examples
-                           #' Assuming `X_test` is your explanatory variables
+                           #' Assuming 'X_test' is your explanatory variables
                            #'
                            #' X_test_d <- catNB$preprocessing_test(X_test)
                            #'
                            #' @export
                            preprocessing_test = function(X){
-
+                             
                              if (all(sapply(X, is.numeric))) {
                                stop("All the explanatory variables are numerical, better use the object 'GaussianNB'.")
                              }
-
+                             
+                             # Deletion of single-valued columns
+                             for(col in private$my_vector_unique_value){
+                               X <- X[, !(names(X) %in% c(col))]
+                             }
+                             
                              # For each numeric column
                              cpt = 1
                              for (i in 1:ncol(X)) {
@@ -168,8 +173,8 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'         with the training results, including feature statistics and performance metrics.
                            #'
                            #' @examples
-                           #' Assuming `X_train` is your preprocessed training dataset
-                           #' and `y_train`is your training target.
+                           #' Assuming 'X_train' is your preprocessed training dataset
+                           #' and 'y_train'is your training target.
                            #'
                            #' catNB$fit(X_train, y_train)
                            #'
@@ -288,7 +293,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'
                            #'
                            #' @examples
-                           #' Assuming `X_test` is your preprocessed test dataset
+                           #' Assuming 'X_test' is your preprocessed test dataset
                            #' Ensure that the model has been trained using fit method
                            #'
                            #' y_pred <- catnb$predict(X_test)
@@ -338,7 +343,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'         and each column to a class.
                            #'
                            #' @examples
-                           #' Assuming `X_test` is your preprocessed test dataset
+                           #' Assuming 'X_test' is your preprocessed test dataset
                            #' logs_probas <- catnb$predict_log_proba(X_test)
                            #'
                            #' @export
@@ -362,7 +367,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #' @return The dataframe which contains the probabilities.
                            #'
                            #' @examples
-                           #' Assuming `X_test` is your preprocessed test dataset
+                           #' Assuming 'X_test' is your preprocessed test dataset
                            #' probas <- catnb$predict_proba(X_test)
                            #'
                            #' @export
@@ -444,7 +449,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                                cat("\n")
                                cat("\n")
                                cat("For at least one of the variables, the supervised discretisation on the numerical columns below found no cut-off limits.")
-                               car("The following variables were eliminated because they did not provide new information (having a unique category after discretization).  : \n", private$my_vector_unique_value, "\n")
+                               cat("The following variables were eliminated because they did not provide new information (having a unique category after discretization).  : \n", private$my_vector_unique_value, "\n")
                              }
                              cat("\n")
                              cat("\n")
@@ -511,7 +516,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'          The results are returned as a list and can optionally be printed in detail.
                            #'
                            #' @examples
-                           #' # Assuming `X_test` and `y_test` are your test dataset and labels
+                           #' # Assuming 'X_test' and 'y_test' are your test dataset and labels
                            #' # Ensure that the model has been trained using fit method
                            #'
                            #' results <- catnb$score(X_test, y_test)
@@ -602,7 +607,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'          handles missing classes by adding zero-filled columns to ensure a complete matrix.
                            #'
                            #' @examples
-                           #' # Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+                           #' # Assuming 'X_test' and 'y_test' are your preprocessed test dataset and actual labels
                            #'
                            #' catnb$plot_confusionmatrix(X_test, y_test)
                            #'
@@ -642,7 +647,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #'          has been trained before generating the ROC curve.
                            #'
                            #' @examples
-                           #' # Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+                           #' # Assuming 'X_test' and 'y_test' are your preprocessed test dataset and actual labels
                            #' # This is the case of a binary classification
                            #'
                            #' catnb$plot_roccurve(X_test, y_test, positive = "YourPositiveClassLabel")
@@ -784,8 +789,3 @@ CategoricalNB <- R6Class("CategoricalNB",
                            my_vector_unique_value = NA
                          )
 )
-
-# R6 does not have a summary generic method, so we have to add a small S3 method function to call the summary function from R6 object.
-summary.CategoricalNB <- function(objectCNB) {
-  objectCNB$summary()
-}
