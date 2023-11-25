@@ -1,1 +1,12 @@
 exportPattern("^[[:alpha:]]+")
+
+import(caret)
+import(corrplot)
+import(discretization)
+import(FactoMineR)
+import(Matrix)
+import(parallel)
+import(R6)
+import(tidyverse)
+import(tm)
+import(wordcloud)

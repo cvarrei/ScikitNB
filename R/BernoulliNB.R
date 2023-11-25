@@ -81,6 +81,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'
     #' @examples
     #' # Assuming `X_train` and `X_test` are your explanatory and target variables respectively
+    #'
     #' bernoulli_nb <- BernoulliNB$new(n_cores = 2)
     #' preprocess_X = bernoulli_nb$preprocess(X_train, X_test)
     #' X_train_vectorized = preprocess_X[[1]]
@@ -134,7 +135,7 @@ BernoulliNB <- R6Class("BernoulliNB",
 
     #' Train Bernoulli Naive Bayes Classifier
     #'
-    #' This method trains the Gaussian Naive Bayes Classifier using the provided training data.
+    #' This method trains the Bernoulli Naive Bayes Classifier using the provided training data.
     #'
     #' @param X A vectorized matrix of explanatory features used for training.
     #' @param y a vector of our target variable containing our classes.
@@ -149,7 +150,8 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          parameters.
     #'
     #' @examples
-    #' # Assuming `X` is your preprocessed training dataset
+    #' # Assuming `X_train_vectorized` is your preprocessed training dataset
+    #'
     #' bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
     #' bernoulli_nb$fit(X_train_vectorized, y_train)
     #'
@@ -241,7 +243,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #' Calculate the joint log probability
     #'
     #' This method calculates the logarithm of the probabilities for each class
-    #' for each observation in the test dataset using the Gaussian Naive Bayes Classifier.
+    #' for each observation in the test dataset using the Bernoulli Naive Bayes Classifier.
     #'
     #' @param X A matrix containing the vectorized test set explanatory features.
     #'
@@ -490,7 +492,7 @@ BernoulliNB <- R6Class("BernoulliNB",
     #' @examples
     #' # Assuming `X_test` and `y_test` are your test dataset and labels
     #' # Ensure that the model has been trained using fit method
-    #' results <- gaussian_nb$score(X_test, y_test)
+    #' results <- bernoulli_nb$score(X_test, y_test)
     #'
     #' @export
     performances = function() {
@@ -560,9 +562,8 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'          The summary provides a deep insight into the model's characteristics and performance.
     #'
     #' @examples
-    #' # Assuming the Gaussian Naive Bayes model has been trained
-    #' bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
-    #' bernoulli_nb$fit(X_train_sc)
+    #' # Assuming the Bernoulli Naive Bayes model has been trained
+    #'
     #' bernoulli_nb$summary()
     #'
     #' # OR
@@ -655,6 +656,8 @@ BernoulliNB <- R6Class("BernoulliNB",
     #'
     #' @examples
     #' # Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
+    #'  This is the case of a binary classification
+    #'
     #' bernoulli_nb$plot_roccurve(X, y_test, positive = "YourPositiveClassLabel")
     #'
     #' @export
@@ -912,8 +915,3 @@ BernoulliNB <- R6Class("BernoulliNB",
   precision_train = NULL
   )
 )
-
-summary.BernoulliNB <- function(bernoulli_nb) { # R6 does not have a summary generic method, so we have to add a small S3 method function to call the summary function from R6 object.
-  bernoulli_nb$summary()
-}
-

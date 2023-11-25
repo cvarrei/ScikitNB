@@ -2,9 +2,11 @@
 % Please edit documentation in R/AFDM.R
 \name{AFDM}
 \alias{AFDM}
-\title{Factor analysis of mixed data}
+\title{Initialize Method for AFDM}
 \description{
-An R6 objet to apply Factor analysis of mixed data
+Initialize Method for AFDM
+
+Initialize Method for AFDM
 }
 \examples{
 

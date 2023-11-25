@@ -2,9 +2,11 @@
 % Please edit documentation in R/BernoulliNB.R
 \name{BernoulliNB}
 \alias{BernoulliNB}
-\title{Bernoulli Naive Bayes Classifier}
+\title{Initialize Bernoulli Naive Bayes Classifier}
 \description{
-An R6 objet of a Bernouilli Naive Bayes Classifier for text data.
+Initialize Bernoulli Naive Bayes Classifier
+
+Initialize Bernoulli Naive Bayes Classifier
 }
 \examples{
 
@@ -21,6 +23,7 @@ bernoulli_nb <- BernoulliNB$new(n_cores = 2)
 ## ------------------------------------------------
 
 # Assuming `X_train` and `X_test` are your explanatory and target variables respectively
+
 bernoulli_nb <- BernoulliNB$new(n_cores = 2)
 preprocess_X = bernoulli_nb$preprocess(X_train, X_test)
 X_train_vectorized = preprocess_X[[1]]
@@ -31,7 +34,8 @@ X_test_vectorized = preprocess_X[[2]]
 ## Method `BernoulliNB$fit`
 ## ------------------------------------------------
 
-# Assuming `X` is your preprocessed training dataset
+# Assuming `X_train_vectorized` is your preprocessed training dataset
+
 bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
 bernoulli_nb$fit(X_train_vectorized, y_train)
 
@@ -84,7 +88,7 @@ results <- bernoulli_nb$score(X, y)
 
 # Assuming `X_test` and `y_test` are your test dataset and labels
 # Ensure that the model has been trained using fit method
-results <- gaussian_nb$score(X_test, y_test)
+results <- bernoulli_nb$score(X_test, y_test)
 
 
 ## ------------------------------------------------
@@ -104,9 +108,8 @@ print(bernoulli_nb)
 ## Method `BernoulliNB$summary`
 ## ------------------------------------------------
 
-# Assuming the Gaussian Naive Bayes model has been trained
-bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
-bernoulli_nb$fit(X_train_sc)
+# Assuming the Bernoulli Naive Bayes model has been trained
+
 bernoulli_nb$summary()
 
 # OR
@@ -119,6 +122,8 @@ summary(bernoulli_nb)
 ## ------------------------------------------------
 
 # Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
+ This is the case of a binary classification
+
 bernoulli_nb$plot_roccurve(X, y_test, positive = "YourPositiveClassLabel")
 
 
@@ -264,6 +269,7 @@ and test data.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_train` and `X_test` are your explanatory and target variables respectively
+
 bernoulli_nb <- BernoulliNB$new(n_cores = 2)
 preprocess_X = bernoulli_nb$preprocess(X_train, X_test)
 X_train_vectorized = preprocess_X[[1]]
@@ -307,7 +313,8 @@ The method does not return anything but updates the model's internal state
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming `X` is your preprocessed training dataset
+\preformatted{# Assuming `X_train_vectorized` is your preprocessed training dataset
+
 bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
 bernoulli_nb$fit(X_train_vectorized, y_train)
 
@@ -521,7 +528,7 @@ The method predicts class labels for the train set, constructs a confusion matri
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test` and `y_test` are your test dataset and labels
 # Ensure that the model has been trained using fit method
-results <- gaussian_nb$score(X_test, y_test)
+results <- bernoulli_nb$score(X_test, y_test)
 
 }
 \if{html}{\out{</div>}}
@@ -579,9 +586,8 @@ The method checks if the model has been trained.
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# Assuming the Gaussian Naive Bayes model has been trained
-bernoulli_nb <- BernoulliNB$new(n_cores = 2, verbose = TRUE)
-bernoulli_nb$fit(X_train_sc)
+\preformatted{# Assuming the Bernoulli Naive Bayes model has been trained
+
 bernoulli_nb$summary()
 
 # OR
@@ -624,6 +630,8 @@ For multi-class classification (more than two classes), the method generates a O
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X` and `y_test` are your preprocessed test dataset and actual labels
+ This is the case of a binary classification
+
 bernoulli_nb$plot_roccurve(X, y_test, positive = "YourPositiveClassLabel")
 
 }

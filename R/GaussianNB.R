@@ -3,7 +3,6 @@ GaussianNB <- R6Class("GaussianNB",
                       public = list(
                         #' Initialize Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method initializes an instance of the Gaussian Naive Bayes Classifier.
                         #' It sets up the environment, including verifying and setting the number of processor cores
                         #' to be used for computation and optionally provides instructions for using the classifier.
@@ -34,22 +33,22 @@ GaussianNB <- R6Class("GaussianNB",
                           private$n_cores <- n_cores # Number of cores chosen
 
                           if (verbose == T){
-                            cat("The Gaussian Naive Bayes Classifier has been correctly instanciated. \n")
+                            cat("The Gaussian Naïve Bayes Classifier has been correctly instanciated. \n")
                             cat(paste0("The calculation will be distributed on ", private$n_cores, " cores."))
                             cat("\n")
                             cat("\n")
                             cat("Please, follows these steps: \n")
-                            cat("   1) Preprocess your explanatory variables 'X_train_sc <- preprocessing_train(X_train, y_train)' \n")
-                            cat("   2) Fit your data with the following 'fit(X_train_sc)' \n")
+                            cat("   1) Preprocess your explanatory variables 'X_train_sc <- preprocessing_train(X_train)' \n")
+                            cat("   2) Fit your data with the following 'fit(X_train_sc, y_train)' \n")
                             cat("   3) Preprocess your explanatory variables from your test sample 'X_test_sc <- preprocessing_test(X_test)' \n")
-                            cat("   4) Predict on your test sample 'predict(X_test_sc)'")
+                            cat("   4) Predict on your test sample 'predict(X_test_sc)' \n")
+                            cat("   5) Test the performance 'score(X_test_sc, y_test)'")
                           }
 
                         },
 
-                        #'  Preprocess Training Data for Gaussian Naive Bayes Classifier
+                        #' Preprocess Training Data for Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method preprocesses the training dataset for use with the Gaussian Naive Bayes Classifier.
                         #' It includes checks for data consistency and applies necessary transformations.
                         #'
@@ -69,15 +68,12 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming `X_train` and `y_train` are your explanatory and target variables respectively
-                        #' gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
+                        #'
                         #' X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
                         #'
                         #' @export
-                        preprocessing_train = function(X_df, y_vec, n_compon=NULL){
-                          # Check that the explanatory variable dataframe and the target variable vector have the same size
-                          if (nrow(X_df) != length(y_vec)) {
-                            stop("The vector of the target variable does not have the same size as the dataframe of explanatory variables.")
-                          }
+                        preprocessing_train = function(X_df, n_compon=NULL){
+
                           # Extract the qualitative feature
                           non_numeric_columns <- sapply(X_df, function(x) !is.numeric(x))
                           # Check if the qualitative features are factors
@@ -93,19 +89,11 @@ GaussianNB <- R6Class("GaussianNB",
                           if (is.data.frame(X_df) == FALSE) {
                             stop("The explanatory variables must be within a dataframe.")
                           }
-                          # Check if the target variable is a factor
-                          if (!is.factor(y_vec)) {
-                            stop("The target variable (y_vec) must be a factor.")
-                          }
 
-                          # Check if there is more than one class within the target variable
-                          if(nlevels(y_vec) < 2){
-                            stop("The target variable must have more than one class.")
-                          }
 
                           # Check if there are missing values within the columns
-                          if (any(is.na(X_df)) || any(is.na(y_vec))) {
-                            stop("Missing values detected in the explanatory variables or the target variable.")
+                          if (any(is.na(X_df))) {
+                            stop("Missing values detected in the explanatory variables.")
                           }
 
                           # Check if one of the explanatory variables have a unique value (constant across all individuals)
@@ -115,14 +103,9 @@ GaussianNB <- R6Class("GaussianNB",
 
                           # Fields are detailed in the private section
                           private$X <- X_df
-                          private$y <- y_vec
                           private$features <- colnames(X_df)
                           private$p <- ncol(X_df)
                           private$n <- nrow(X_df)
-                          private$k <- nlevels(y_vec)
-                          private$n_k <- as.vector(table(private$y))
-                          private$prior <- private$n_k / private$n
-                          private$class <- levels(y_vec)
 
                           # If the data is mixed, an AFDM is applied to obtain only numerical data.
                           if (any(sapply(private$X, is.numeric)) && any(sapply(private$X, is.factor))) {
@@ -152,9 +135,8 @@ GaussianNB <- R6Class("GaussianNB",
                           return(private$X_scaled)
                         },
 
-                        #'   Preprocess Test Data for Gaussian Naive Bayes Classifier
+                        #' Preprocess Test Data for Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method preprocesses the test dataset for use with the Gaussian Naive Bayes Classifier.
                         #' It applies necessary transformations based on the nature of the data (mixed or purely numerical).
                         #'
@@ -171,7 +153,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming `X_test` is your test dataset
-                        #' gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
+                        #'
                         #' X_test_sc <- gaussian_nb$preprocessing_test(X_test)
                         #'
                         #' @export
@@ -194,7 +176,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Train Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method trains the Gaussian Naive Bayes Classifier using the provided training data.
                         #'
                         #' @param X A preprocessed dataframe of explanatory variables used for training.
@@ -211,33 +192,57 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming `X_train_sc` is your preprocessed training dataset
-                        #' gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-                        #' X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
+                        #'
                         #' gaussian_nb$fit(X_train_sc)
                         #'
                         #' @export
-                        fit = function(X, verbose = T){
+                        fit = function(X_sc, y_vec, verbose = T){
+
+                          # Check if the target variable is a factor
+                          if (!is.factor(y_vec)) {
+                            stop("The target variable (y_vec) must be a factor.")
+                          }
+
+                          # Check if there is more than one class within the target variable
+                          if(nlevels(y_vec) < 2){
+                            stop("The target variable must have more than one class.")
+                          }
+
+                          # Check that the explanatory variable dataframe and the target variable vector have the same size
+                          if (nrow(X_sc) != length(y_vec)) {
+                            stop("The vector of the target variable does not have the same size as the dataframe of explanatory variables.")
+                          }
+
+                          # Check if there are missing values within the target variable
+                          if (any(is.na(y_vec))) {
+                            stop("Missing values detected in the target variable.")
+                          }
 
                           # Indicate that learning has been completed.
                           private$fit_val <- T
+                          private$y <- y_vec
+                          private$k <- nlevels(y_vec)
+                          private$n_k <- as.vector(table(private$y))
+                          private$prior <- private$n_k / private$n
+                          private$class <- levels(y_vec)
 
                           if (verbose == T){
                             cat("Fitting in progress...")
                           }
 
-                          private$features <- colnames(X)
-                          private$p <- ncol(X)
+                          private$features <- colnames(X_sc)
+                          private$p <- ncol(X_sc)
 
                           # Create clusters for the parallelization
                           cl <- makeCluster(private$n_cores)
 
                           # Calculate the conditional means
-                          private$mean_k <- parSapply(cl, X, function(col) {
+                          private$mean_k <- parSapply(cl, X_sc, function(col) {
                             tapply(col, private$y, mean)
                           })
 
                           # On calcule les variances conditionnelles
-                          private$var_k <- parSapply(cl, X, function(col) {
+                          private$var_k <- parSapply(cl, X_sc, function(col) {
                             tapply(col, private$y, var)
                           })
 
@@ -255,7 +260,7 @@ GaussianNB <- R6Class("GaussianNB",
 
                           ### CALCULATE THE F-VALUE FOR EACH VARIABLE
                           # Calculate the averages of the variables
-                          private$mean_var <- parApply(cl, X, 2, mean)
+                          private$mean_var <- parApply(cl, X_sc, 2, mean)
                           # Calculate the first part of the F-value formula for each variable
                           F_1 <- parSapply(cl, 1:private$p,function(j){sum(private$n_k*(private$mean_k[,j]-private$mean_var[j])^2)})/(private$k-1)
                           # Divide by the pooled variance
@@ -271,7 +276,7 @@ GaussianNB <- R6Class("GaussianNB",
 
                           ### CALCULATE THE PERFORMANCE OF THE TRAINING
                           # Extract the predicted classes for the explanatory variables from the training sample
-                          predict_train <- self$predict(X)
+                          predict_train <- self$predict(X_sc)
                           #
                           y_train <- private$y
 
@@ -315,7 +320,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Predict Class Labels Using Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method predicts the class labels for each observation in the test dataset
                         #' using the Gaussian Naive Bayes Classifier. It offers two modes of prediction:
                         #' linear combination ('comblin') and probability-based ('proba').
@@ -335,6 +339,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #' @examples
                         #' # Assuming `X_test_sc` is your preprocessed test dataset
                         #' # Ensure that the model has been trained using fit method
+                        #'
                         #' y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
                         #'
                         #' @export
@@ -368,8 +373,8 @@ GaussianNB <- R6Class("GaussianNB",
 
                             # If the predicted class are predicted from the probabilities,
                           } else if (type == "proba"){
-                            # Create a dataframe with the probability per class for each
-                            individual
+                            # Create a dataframe with the probability per class for each individual
+
                             proba_df <- as.data.frame(self$predict_proba(X_test))
                             #  Retrieve the index of the column with the maximum probability for this individual
                             max_values_indices <- max.col(proba_df, ties.method = "first")
@@ -383,14 +388,13 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Calculate Log Probabilities for Each Class
                         #'
-                        #' @description
                         #' This method calculates the logarithm of the probabilities for each class
                         #' for each observation in the test dataset using the Gaussian Naive Bayes Classifier.
                         #'
                         #' @param X_test A dataframe containing the preprocessed test set explanatory variables.
                         #'
                         #' @return A matrix of log probabilities, where each row corresponds to an observation
-                        #'         and each column to a class. The probabilities are normalized using the logsumexp trick.
+                        #'         and each column to a class. The log-probabilities are normalized using the logsumexp trick.
                         #'
                         #' @details Before calculating the log probabilities, the method checks if the model
                         #'          has been trained. It uses parallel processing to calculate the log probabilities
@@ -402,6 +406,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming `X_test_sc` is your preprocessed test dataset
+                        #'
                         #' log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
                         #'
                         #' @export
@@ -443,7 +448,6 @@ GaussianNB <- R6Class("GaussianNB",
                           }))
 
                           stopCluster(cl) # Close the clusters and print a warning message.
-                          print("Cluster Closed")
 
                           # Return the normalized log_proba matrix
                           return(private$mat_log_likelihood_norm)
@@ -451,7 +455,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Calculate Posterior Probabilities for Each Class
                         #'
-                        #' @description
                         #' This method computes the posterior probabilities for each class
                         #' for each observation in the test dataset using the Gaussian Naive Bayes Classifier.
                         #'
@@ -467,6 +470,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming `X_test_sc` is your preprocessed test dataset
+                        #'
                         #' probs <- gaussian_nb$predict_proba(X_test_sc)
                         #'
                         #' @export
@@ -484,7 +488,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Evaluate Performance of Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method evaluates the performance of the Gaussian Naive Bayes model on a test dataset.
                         #' It calculates the error rate, recall, precision, and provides the confusion matrix.
                         #'
@@ -505,11 +508,10 @@ GaussianNB <- R6Class("GaussianNB",
                         #' @examples
                         #' # Assuming `X_test` and `y_test` are your test dataset and labels
                         #' # Ensure that the model has been trained using fit method
+                        #'
                         #' results <- gaussian_nb$score(X_test, y_test)
                         #'
                         #' @export
-
-
                         score = function(X_test,  y_test, type = "comblin",verbose=T){
                           # Check that the training has been carried out correctly
                           if (private$fit_val != T){
@@ -584,7 +586,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Print Short Summary of Gaussian Naive Bayes Model
                         #'
-                        #' @description
                         #' This method prints a short summary of the Gaussian Naive Bayes model,
                         #' including details about the target variable, sample size, and error rate on the training set.
                         #'
@@ -595,11 +596,11 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming the Gaussian Naive Bayes model has been trained
-                        #' gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-                        #' gaussian_nb$fit(X_train_sc)
+                        #'
                         #' gaussian_nb$print()
                         #'
                         #' # OR
+                        #'
                         #' print(gaussian_nb)
                         #'
                         #' @export
@@ -616,7 +617,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Detailed Summary of Gaussian Naive Bayes Model
                         #'
-                        #' @description
                         #' This method displays a comprehensive summary of the Gaussian Naive Bayes model,
                         #' including details about the model's classes, features, performance metrics,
                         #' and classification function.
@@ -631,8 +631,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming the Gaussian Naive Bayes model has been trained
-                        #' gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-                        #' gaussian_nb$fit(X_train_sc)
+                        #'
                         #' gaussian_nb$summary()
                         #'
                         #' # OR
@@ -726,7 +725,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Visualize Confusion Matrix for Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method creates a visual representation of the confusion matrix for the test dataset
                         #' using the Gaussian Naive Bayes Classifier. It allows selection between class label prediction
                         #' based on linear combination (`comblin`) or probabilities (`proba`).
@@ -744,6 +742,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+                        #'
                         #' gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
                         #'
                         #' @export
@@ -784,7 +783,6 @@ GaussianNB <- R6Class("GaussianNB",
 
                         #' Generate ROC Curve for Gaussian Naive Bayes Classifier
                         #'
-                        #' @description
                         #' This method plots the Receiver Operating Characteristic (ROC) curve for the test dataset
                         #' using the Gaussian Naive Bayes Classifier. It handles both binary and multi-class scenarios.
                         #'
@@ -800,6 +798,8 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @examples
                         #' # Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+                        #'  This is the case of a binary classification
+                        #'
                         #' gaussian_nb$plot_roccurve(X_test_sc, y_test, positive = "YourPositiveClassLabel")
                         #'
                         #' @export
@@ -922,7 +922,7 @@ GaussianNB <- R6Class("GaussianNB",
                         class = NA,
                         # The confusion matrix of the training sample.
                         cm_train = NA,
-                        # The coefficients of the classification functions.
+                        # The coefficients of the ranking functions.
                         coef = NA,
                         # The error rate of the training sample.
                         error_train = NA,
@@ -942,13 +942,10 @@ GaussianNB <- R6Class("GaussianNB",
                         li_train = NA,
                         # Upper bound of the confidence interval for the training sample.
                         ls_train = NA,
-
-                        # Mixed data type. The matrix of normalized log-probabilities.
+                        #' Mixed data type. The matrix of normalized log-probabilities.
                         mat_log_likelihood_norm = NA,
-
-                        # The matrix of posterior probabilities.
+                        #' The matrix of posterior probabilities.
                         mat_proba = NA,
-
                         # The conditional means.
                         mean_k = NA,
                         # The global means of the variables.
@@ -969,10 +966,6 @@ GaussianNB <- R6Class("GaussianNB",
                         prior = NA,
                         # The recall for each class for the training sample.
                         recall_train = NA,
-                        # The means for centering and scaling.
-                        train_mean = NA,
-                        # The standard deviations for centering and scaling.
-                        train_sd = NA,
                         # The conditional variances.
                         var_k = NA,
                         # The common variance.
@@ -985,8 +978,3 @@ GaussianNB <- R6Class("GaussianNB",
                         y = NA
                       )
 )
-
-summary.GaussianNB <- function(gnb, print_afdm=F) {
-  # R6 does not have a generic summary method, so we need to add a small S3 method function to call the summary function from the R6 object.
-  gnb$summary(print_afdm=print_afdm)
-}

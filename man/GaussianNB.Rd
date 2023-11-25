@@ -2,11 +2,11 @@
 % Please edit documentation in R/GaussianNB.R
 \name{GaussianNB}
 \alias{GaussianNB}
-\title{Gaussian Naive Bayes Classifier}
+\title{Initialize Gaussian Naive Bayes Classifier}
 \description{
+Initialize Gaussian Naive Bayes Classifier
 
-An R6 objet of a Gaussian Naive Bayes Classifier for numerical and mixed (numerical and categorical) data.
-
+Initialize Gaussian Naive Bayes Classifier
 }
 \examples{
 
@@ -23,7 +23,7 @@ gaussian_nb <- GaussianNB$new(n_cores = 2)
 ## ------------------------------------------------
 
 # Assuming `X_train` and `y_train` are your explanatory and target variables respectively
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
+
 X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 
 
@@ -32,7 +32,7 @@ X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 ## ------------------------------------------------
 
 # Assuming `X_test` is your test dataset
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
+
 X_test_sc <- gaussian_nb$preprocessing_test(X_test)
 
 
@@ -41,8 +41,7 @@ X_test_sc <- gaussian_nb$preprocessing_test(X_test)
 ## ------------------------------------------------
 
 # Assuming `X_train_sc` is your preprocessed training dataset
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
+
 gaussian_nb$fit(X_train_sc)
 
 
@@ -52,6 +51,7 @@ gaussian_nb$fit(X_train_sc)
 
 # Assuming `X_test_sc` is your preprocessed test dataset
 # Ensure that the model has been trained using fit method
+
 y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
 
 
@@ -60,6 +60,7 @@ y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
 ## ------------------------------------------------
 
 # Assuming `X_test_sc` is your preprocessed test dataset
+
 log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 
 
@@ -68,6 +69,7 @@ log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 ## ------------------------------------------------
 
 # Assuming `X_test_sc` is your preprocessed test dataset
+
 probs <- gaussian_nb$predict_proba(X_test_sc)
 
 
@@ -77,6 +79,7 @@ probs <- gaussian_nb$predict_proba(X_test_sc)
 
 # Assuming `X_test` and `y_test` are your test dataset and labels
 # Ensure that the model has been trained using fit method
+
 results <- gaussian_nb$score(X_test, y_test)
 
 
@@ -85,11 +88,11 @@ results <- gaussian_nb$score(X_test, y_test)
 ## ------------------------------------------------
 
 # Assuming the Gaussian Naive Bayes model has been trained
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-gaussian_nb$fit(X_train_sc)
+
 gaussian_nb$print()
 
 # OR
+
 print(gaussian_nb)
 
 
@@ -98,8 +101,7 @@ print(gaussian_nb)
 ## ------------------------------------------------
 
 # Assuming the Gaussian Naive Bayes model has been trained
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-gaussian_nb$fit(X_train_sc)
+
 gaussian_nb$summary()
 
 # OR
@@ -112,6 +114,7 @@ summary(gaussian_nb)
 ## ------------------------------------------------
 
 # Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+
 gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
 
 
@@ -120,6 +123,8 @@ gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
 ## ------------------------------------------------
 
 # Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+ This is the case of a binary classification
+
 gaussian_nb$plot_roccurve(X_test_sc, y_test, positive = "YourPositiveClassLabel")
 
 }
@@ -202,10 +207,8 @@ gaussian_nb <- GaussianNB$new(n_cores = 2)
 \if{html}{\out{<a id="method-GaussianNB-preprocessing_train"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-preprocessing_train}{}}}
 \subsection{Method \code{preprocessing_train()}}{
-This method preprocesses the training dataset for use with the Gaussian Naive Bayes Classifier.
-It includes checks for data consistency and applies necessary transformations.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GaussianNB$preprocessing_train(X_df, y_vec, n_compon = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GaussianNB$preprocessing_train(X_df, n_compon = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -213,9 +216,9 @@ It includes checks for data consistency and applies necessary transformations.
 \describe{
 \item{\code{X_df}}{A dataframe containing the explanatory variables.}
 
-\item{\code{y_vec}}{A vector containing the target variable.}
-
 \item{\code{n_compon}}{The number of components for the FAMD. Default: NULL, the elbow will be automatically detect.}
+
+\item{\code{y_vec}}{A vector containing the target variable.}
 }
 \if{html}{\out{</div>}}
 }
@@ -235,7 +238,7 @@ A preprocessed dataframe suitable for training the Gaussian Naive Bayes Classifi
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_train` and `y_train` are your explanatory and target variables respectively
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
+
 X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 
 }
@@ -248,8 +251,6 @@ X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
 \if{html}{\out{<a id="method-GaussianNB-preprocessing_test"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-preprocessing_test}{}}}
 \subsection{Method \code{preprocessing_test()}}{
-This method preprocesses the test dataset for use with the Gaussian Naive Bayes Classifier.
-It applies necessary transformations based on the nature of the data (mixed or purely numerical).
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$preprocessing_test(X_test)}\if{html}{\out{</div>}}
 }
@@ -276,7 +277,7 @@ A preprocessed dataframe suitable for making predictions with the Gaussian Naive
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test` is your test dataset
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
+
 X_test_sc <- gaussian_nb$preprocessing_test(X_test)
 
 }
@@ -289,18 +290,17 @@ X_test_sc <- gaussian_nb$preprocessing_test(X_test)
 \if{html}{\out{<a id="method-GaussianNB-fit"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-fit}{}}}
 \subsection{Method \code{fit()}}{
-This method trains the Gaussian Naive Bayes Classifier using the provided training data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GaussianNB$fit(X, verbose = T)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GaussianNB$fit(X_sc, y_vec, verbose = T)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{X}}{A preprocessed dataframe of explanatory variables used for training.}
-
 \item{\code{verbose}}{A logical value indicating whether to print detailed messages
 about the training process. Default is TRUE.}
+
+\item{\code{X}}{A preprocessed dataframe of explanatory variables used for training.}
 }
 \if{html}{\out{</div>}}
 }
@@ -318,8 +318,7 @@ The method does not return anything but updates the model's internal state
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_train_sc` is your preprocessed training dataset
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-X_train_sc <- gaussian_nb$preprocessing_train(X_train, y_train)
+
 gaussian_nb$fit(X_train_sc)
 
 }
@@ -332,9 +331,6 @@ gaussian_nb$fit(X_train_sc)
 \if{html}{\out{<a id="method-GaussianNB-predict"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-predict}{}}}
 \subsection{Method \code{predict()}}{
-This method predicts the class labels for each observation in the test dataset
-using the Gaussian Naive Bayes Classifier. It offers two modes of prediction:
-linear combination ('comblin') and probability-based ('proba').
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$predict(X_test, type = "comblin")}\if{html}{\out{</div>}}
 }
@@ -364,6 +360,7 @@ A vector of predicted class labels for each observation in the test dataset.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test_sc` is your preprocessed test dataset
 # Ensure that the model has been trained using fit method
+
 y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
 
 }
@@ -376,8 +373,6 @@ y_pred <- gaussian_nb$predict(X_test_sc, type="comblin")
 \if{html}{\out{<a id="method-GaussianNB-predict_log_proba"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-predict_log_proba}{}}}
 \subsection{Method \code{predict_log_proba()}}{
-This method calculates the logarithm of the probabilities for each class
-for each observation in the test dataset using the Gaussian Naive Bayes Classifier.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$predict_log_proba(X_test)}\if{html}{\out{</div>}}
 }
@@ -400,11 +395,12 @@ Before calculating the log probabilities, the method checks if the model
 
 \subsection{Returns}{
 A matrix of log probabilities, where each row corresponds to an observation
-        and each column to a class. The probabilities are normalized using the logsumexp trick.
+        and each column to a class. The log-probabilities are normalized using the logsumexp trick.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test_sc` is your preprocessed test dataset
+
 log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 
 }
@@ -417,8 +413,6 @@ log_probs <- gaussian_nb$predict_log_proba(X_test_sc)
 \if{html}{\out{<a id="method-GaussianNB-predict_proba"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-predict_proba}{}}}
 \subsection{Method \code{predict_proba()}}{
-This method computes the posterior probabilities for each class
-for each observation in the test dataset using the Gaussian Naive Bayes Classifier.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$predict_proba(X_test)}\if{html}{\out{</div>}}
 }
@@ -444,6 +438,7 @@ A matrix of posterior probabilities, where each row corresponds to an observatio
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test_sc` is your preprocessed test dataset
+
 probs <- gaussian_nb$predict_proba(X_test_sc)
 
 }
@@ -456,8 +451,6 @@ probs <- gaussian_nb$predict_proba(X_test_sc)
 \if{html}{\out{<a id="method-GaussianNB-score"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-score}{}}}
 \subsection{Method \code{score()}}{
-This method evaluates the performance of the Gaussian Naive Bayes model on a test dataset.
-It calculates the error rate, recall, precision, and provides the confusion matrix.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$score(X_test, y_test, type = "comblin", verbose = T)}\if{html}{\out{</div>}}
 }
@@ -491,6 +484,7 @@ A list containing the confusion matrix, error rate, 95% confidence interval for 
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test` and `y_test` are your test dataset and labels
 # Ensure that the model has been trained using fit method
+
 results <- gaussian_nb$score(X_test, y_test)
 
 }
@@ -503,8 +497,6 @@ results <- gaussian_nb$score(X_test, y_test)
 \if{html}{\out{<a id="method-GaussianNB-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-print}{}}}
 \subsection{Method \code{print()}}{
-This method prints a short summary of the Gaussian Naive Bayes model,
-including details about the target variable, sample size, and error rate on the training set.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$print()}\if{html}{\out{</div>}}
 }
@@ -519,11 +511,11 @@ The method checks if the model has been trained and then prints
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming the Gaussian Naive Bayes model has been trained
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-gaussian_nb$fit(X_train_sc)
+
 gaussian_nb$print()
 
 # OR
+
 print(gaussian_nb)
 
 }
@@ -536,9 +528,6 @@ print(gaussian_nb)
 \if{html}{\out{<a id="method-GaussianNB-summary"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-summary}{}}}
 \subsection{Method \code{summary()}}{
-This method displays a comprehensive summary of the Gaussian Naive Bayes model,
-including details about the model's classes, features, performance metrics,
-and classification function.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$summary(print_afdm = F)}\if{html}{\out{</div>}}
 }
@@ -556,8 +545,7 @@ The method checks if the model has been trained.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming the Gaussian Naive Bayes model has been trained
-gaussian_nb <- GaussianNB$new(n_cores = 2, verbose = TRUE)
-gaussian_nb$fit(X_train_sc)
+
 gaussian_nb$summary()
 
 # OR
@@ -574,9 +562,6 @@ summary(gaussian_nb)
 \if{html}{\out{<a id="method-GaussianNB-plot_confusionmatrix"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-plot_confusionmatrix}{}}}
 \subsection{Method \code{plot_confusionmatrix()}}{
-This method creates a visual representation of the confusion matrix for the test dataset
-using the Gaussian Naive Bayes Classifier. It allows selection between class label prediction
-based on linear combination (`comblin`) or probabilities (`proba`).
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$plot_confusionmatrix(X, y_test, type = "comblin")}\if{html}{\out{</div>}}
 }
@@ -604,6 +589,7 @@ The method first checks if the model has been trained.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+
 gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
 
 }
@@ -616,8 +602,6 @@ gaussian_nb$plot_confusionmatrix(X_test_sc, y_test)
 \if{html}{\out{<a id="method-GaussianNB-plot_roccurve"></a>}}
 \if{latex}{\out{\hypertarget{method-GaussianNB-plot_roccurve}{}}}
 \subsection{Method \code{plot_roccurve()}}{
-This method plots the Receiver Operating Characteristic (ROC) curve for the test dataset
-using the Gaussian Naive Bayes Classifier. It handles both binary and multi-class scenarios.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GaussianNB$plot_roccurve(X, y_test, positive = NULL)}\if{html}{\out{</div>}}
 }
@@ -644,6 +628,8 @@ For multi-class classification (more than two classes), the method generates a O
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# Assuming `X_test_sc` and `y_test` are your preprocessed test dataset and actual labels
+ This is the case of a binary classification
+
 gaussian_nb$plot_roccurve(X_test_sc, y_test, positive = "YourPositiveClassLabel")
 
 }

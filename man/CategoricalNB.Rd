@@ -2,10 +2,132 @@
 % Please edit documentation in R/CategoricalNB.R
 \name{CategoricalNB}
 \alias{CategoricalNB}
-\title{Categorical Naive Bayes Classifier}
+\title{Initialize Categorical Naive Bayes Classifier}
 \description{
+Initialize Categorical Naive Bayes Classifier
 
-An R6 objet of a Categorical Naive Bayes Classifier for qualitative and mixed (numerical and categorical) data.
+Initialize Categorical Naive Bayes Classifier
+}
+\examples{
+
+## ------------------------------------------------
+## Method `CategoricalNB$new`
+## ------------------------------------------------
+
+# Initialize the Categorical Naive Bayes Classifier with verbose output
+catnb <- CategoricalNB$new()
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$preprocessing_train`
+## ------------------------------------------------
+
+Assuming `X_train` is your explanatory variables
+and `y_train` the target variable.
+catNB <- CategoricalNB$new()
+list_catNB <- catNB$preprocessing_train(X_train,y_train)
+X_train_d <- list_catNB[[1]]
+y_train <- list_catNB[[2]]
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$preprocessing_test`
+## ------------------------------------------------
+
+Assuming `X_test` is your explanatory variables
+
+X_test_d <- catNB$preprocessing_test(X_test)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$fit`
+## ------------------------------------------------
+
+Assuming `X_train` is your preprocessed training dataset
+and `y_train`is your training target.
+
+catNB$fit(X_train, y_train)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$predict`
+## ------------------------------------------------
+
+Assuming `X_test` is your preprocessed test dataset
+Ensure that the model has been trained using fit method
+
+y_pred <- catnb$predict(X_test)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$predict_log_proba`
+## ------------------------------------------------
+
+Assuming `X_test` is your preprocessed test dataset
+logs_probas <- catnb$predict_log_proba(X_test)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$predict_proba`
+## ------------------------------------------------
+
+Assuming `X_test` is your preprocessed test dataset
+probas <- catnb$predict_proba(X_test)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$print`
+## ------------------------------------------------
+
+# Assuming the Categorical Naive Bayes model has been trained
+
+catnb$print()
+
+# OR
+
+print(catnb)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$summary`
+## ------------------------------------------------
+
+# Assuming the Categorical Naive Bayes model has been trained
+
+catnb$summary()
+
+# OR
+
+summary(catnb)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$score`
+## ------------------------------------------------
+
+# Assuming `X_test` and `y_test` are your test dataset and labels
+# Ensure that the model has been trained using fit method
+
+results <- catnb$score(X_test, y_test)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$plot_confusionmatrix`
+## ------------------------------------------------
+
+# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+
+catnb$plot_confusionmatrix(X_test, y_test)
+
+
+## ------------------------------------------------
+## Method `CategoricalNB$plot_roccurve`
+## ------------------------------------------------
+
+# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+# This is the case of a binary classification
+
+catnb$plot_roccurve(X_test, y_test, positive = "YourPositiveClassLabel")
 
 }
 \section{Methods}{
@@ -30,8 +152,34 @@ An R6 objet of a Categorical Naive Bayes Classifier for qualitative and mixed (n
 \if{html}{\out{<a id="method-CategoricalNB-new"></a>}}
 \if{latex}{\out{\hypertarget{method-CategoricalNB-new}{}}}
 \subsection{Method \code{new()}}{
+This method initializes an instance of the Categorical Naive Bayes Classifier.
+It sets up the environment  to be used for computation and optionally provides
+instructions for using the classifier.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CategoricalNB$new(verbose = T)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{verbose}}{A logical value indicating whether to print detailed messages
+about the initialization process. Default is TRUE.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+When `verbose` is TRUE, the function prints
+         instructions on the console for preprocessing and using the classifier.
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# Initialize the Categorical Naive Bayes Classifier with verbose output
+catnb <- CategoricalNB$new()
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -52,10 +200,35 @@ An R6 objet of a Categorical Naive Bayes Classifier for qualitative and mixed (n
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Returns}{
-The discretized dataframe.
-Convert continuous data into discrete data for the predicted data
+\subsection{Details}{
+The discretization of data is an important and essential step in the pre-processing of variables
+         continuous before the application of the naive Bayesian categorical model.
+         For this, we used the supervised discretization method based on the principle of Minimum
+         Description Length Principle (MDLP). The MDLP seeks to find the optimal discretization by minimizing the
+         length of the model description while maximizing the separation between classes.
+         It may happen, in certain cases, that the MDLP function does not find cutting terminals
+         and returns a single category. We have chosen to deal with this case by deleting these columnsas they do not add any information
+         for the classification.
+         The user will be notified when the summary is displayed.
 }
+
+\subsection{Returns}{
+A list containing the discretized variables and the y variable.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{Assuming `X_train` is your explanatory variables
+and `y_train` the target variable.
+catNB <- CategoricalNB$new()
+list_catNB <- catNB$preprocessing_train(X_train,y_train)
+X_train_d <- list_catNB[[1]]
+y_train <- list_catNB[[2]]
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-preprocessing_test"></a>}}
@@ -72,10 +245,27 @@ Convert continuous data into discrete data for the predicted data
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+This function will discretize the continuous
+        explanatory columns according to the limits learnt
+        during the preprocessing on the training sample (preprocessing_train()).
+        Be careful, you must first preprocess your training sample.
+}
+
 \subsection{Returns}{
 The discretized dataframe.
-Fit the model according to the given training data.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{Assuming `X_test` is your explanatory variables
+
+X_test_d <- catNB$preprocessing_test(X_test)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-fit"></a>}}
@@ -92,21 +282,34 @@ Fit the model according to the given training data.
 
 \item{\code{y_train}}{The target variables.}
 
-\item{\code{lmbd}}{Optional constant used for Laplace smoothing.}
+\item{\code{lmbd}}{Optional constant used for Laplace smoothing.
+By default 1.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The model.
-Predict function.
+The method does not return anything but updates the model's internal state
+        with the training results, including feature statistics and performance metrics.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{Assuming `X_train` is your preprocessed training dataset
+and `y_train`is your training target.
+
+catNB$fit(X_train, y_train)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-predict"></a>}}
 \if{latex}{\out{\hypertarget{method-CategoricalNB-predict}{}}}
 \subsection{Method \code{predict()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CategoricalNB$predict(data_test, n_cores = 4)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CategoricalNB$predict(data_test)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -118,8 +321,19 @@ Predict function.
 }
 \subsection{Returns}{
 The prediction as a dataframe.
-Predict log-probability estimates.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{Assuming `X_test` is your preprocessed test dataset
+Ensure that the model has been trained using fit method
+
+y_pred <- catnb$predict(X_test)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-predict_log_proba"></a>}}
@@ -132,14 +346,24 @@ Predict log-probability estimates.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{X}}{The dataset on which we wish the probability prediction.}
+\item{\code{X}}{A dataframe containing the preprocessed test set explanatory variables.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The dataframe which contains the log-probabilities.
-Probability estimates.
+A matrix of log probabilities, where each row corresponds to an observation
+        and each column to a class.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{Assuming `X_test` is your preprocessed test dataset
+logs_probas <- catnb$predict_log_proba(X_test)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-predict_proba"></a>}}
@@ -152,16 +376,23 @@ Probability estimates.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{X}}{The dataset on which we wish the probability prediction.}
+\item{\code{X}}{A dataframe containing the preprocessed test set explanatory variables.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 The dataframe which contains the probabilities.
-Print function.
-Summary function.
-Evaluate Performance of Categorical Naive Bayes Classifier.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{Assuming `X_test` is your preprocessed test dataset
+probas <- catnb$predict_proba(X_test)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-print"></a>}}
@@ -171,6 +402,28 @@ Evaluate Performance of Categorical Naive Bayes Classifier.
 \if{html}{\out{<div class="r">}}\preformatted{CategoricalNB$print()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+The method checks if the model has been trained and then prints
+         the number of classes in the target variable, the number of observations
+         in the sample, and the error rate on the training set along with its 95%
+         confidence interval. This provides a quick overview of the model's training performance.
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# Assuming the Categorical Naive Bayes model has been trained
+
+catnb$print()
+
+# OR
+
+print(catnb)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-summary"></a>}}
@@ -178,6 +431,30 @@ Evaluate Performance of Categorical Naive Bayes Classifier.
 \subsection{Method \code{summary()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CategoricalNB$summary()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+The method checks if the model has been trained.
+         It prints details such as the number of classes, class labels, number of features,
+         size of the training sample, prior probabilities of each class,
+         classifier performance metrics (confusion matrix, error rate, recall, precision) on the training dataset,
+         and the classification function (coefficients, intercepts)
+         and conditionnal distribution.
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# Assuming the Categorical Naive Bayes model has been trained
+
+catnb$summary()
+
+# OR
+
+summary(catnb)
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -197,13 +474,35 @@ Evaluate Performance of Categorical Naive Bayes Classifier.
 \item{\code{y_test}}{A vector containing the actual class labels of the test set.}
 
 \item{\code{verbose}}{A boolean indicating whether to print detailed output (default is TRUE).}
+
+\item{\code{type}}{A string specifying the prediction mode: 'comblin' (default) for linear
+combination, 'proba' for probability-based classification.}
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Returns}{
-A list containing the confusion matrix, error rate, 95% confidence interval for the error rate, recall, and precision for each class.
-Visualization of the confusion matrix.
+\subsection{Details}{
+The method checks if the model has been trained, predicts class labels for the test set,
+         constructs a confusion matrix, and calculates error rate, recall, and precision.
+         It also computes a 95% confidence interval for the error rate.
+         The results are returned as a list and can optionally be printed in detail.
 }
+
+\subsection{Returns}{
+A list containing the confusion matrix, error rate, 95% confidence interval for the error rate,
+        recall, and precision for each class.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# Assuming `X_test` and `y_test` are your test dataset and labels
+# Ensure that the model has been trained using fit method
+
+results <- catnb$score(X_test, y_test)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-plot_confusionmatrix"></a>}}
@@ -216,12 +515,31 @@ Visualization of the confusion matrix.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{X}}{The dataset X.}
+\item{\code{X}}{A dataframe containing the test set explanatory variables.}
 
-\item{\code{y_test}}{y_test.}
+\item{\code{y_test}}{A vector containing the actual class labels of the test set.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+The method first checks if the model has been trained.
+         It then predicts the class labels for the test set using the specified prediction type
+         and constructs a confusion matrix. This matrix is visualized using the `corrplot` package,
+         with a color gradient representing the frequency of each cell in the matrix. The method
+         handles missing classes by adding zero-filled columns to ensure a complete matrix.
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+
+catnb$plot_confusionmatrix(X_test, y_test)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CategoricalNB-plot_roccurve"></a>}}
@@ -229,6 +547,37 @@ Visualization of the confusion matrix.
 \subsection{Method \code{plot_roccurve()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CategoricalNB$plot_roccurve(X, y_test, positive = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{X}}{A dataframe containing the preprocessed test set explanatory variables.}
+
+\item{\code{y_test}}{A vector containing the actual class labels of the test set.}
+
+\item{\code{positive}}{An optional parameter specifying the positive class label in a binary classification scenario.
+It is required when the model is trained on a binary classification task.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+For multi-class classification (more than two classes), the method generates a One-vs-Rest (OVR)
+         multi-class ROC curve. For binary classification, it plots a ROC curve for the specified positive class.
+         The Area Under the Curve (AUC) is calculated for each class. The method checks if the model
+         has been trained before generating the ROC curve.
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+# This is the case of a binary classification
+
+catnb$plot_roccurve(X_test, y_test, positive = "YourPositiveClassLabel")
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

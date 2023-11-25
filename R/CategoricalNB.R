@@ -1,52 +1,41 @@
 CategoricalNB <- R6Class("CategoricalNB",
-
                          public = list(
-                           #' Create a new instance of the CategoricalNB class.
+                           #' Initialize Categorical Naive Bayes Classifier
+                           #'
+                           #' This method initializes an instance of the Categorical Naive Bayes Classifier.
+                           #' It sets up the environment  to be used for computation and optionally provides
+                           #' instructions for using the classifier.
+                           #'
+
+                           #' @param verbose A logical value indicating whether to print detailed messages
+                           #'        about the initialization process. Default is TRUE.
+                           #'
+                           #' @details When `verbose` is TRUE, the function prints
+                           #'          instructions on the console for preprocessing and using the classifier.
+                           #'
+                           #' @examples
+                           #' # Initialize the Categorical Naive Bayes Classifier with verbose output
+                           #' catnb <- CategoricalNB$new()
+                           #'
+                           #' @export
                            initialize = function(verbose=T) {
-                             #' The model.
                              private$my_model <- NULL
-
-                             #' The model of the discretization.
                              private$my_model_preprocess <- NULL
-
-                             #' Probabilities.
                              private$my_df_class_log_proba <- data.frame()
-
-                             #' Number of observations.
                              private$my_n_observations <- NULL
-
-                             #' Prediction of y values.
                              private$my_y_predict <- NULL
-
-                             #' Confusion matrix.
                              private$my_cm <- NULL
-
-                             #' Error rate.
                              private$my_error <- NULL
-
-                             #' Lower bound of the confidence interval.
                              private$my_li <- NULL
-
-                             #' Upper bound of the confidence interval.
                              private$my_ls <- NULL
-
-                             #' Number of classes.
                              private$my_k_class <- NULL
-
-                             #' Label of classes.
                              private$my_class <- NULL
-
-                             #' Number of features.
                              private$my_p <- NULL
-
-                             #' Model description.
                              private$my_class_func  <- NULL
-
-                             #' Columns deleted after discretization.
                              private$my_vector_unique_value <- c()
 
                              if (verbose == TRUE){
-                               cat("The Categorical Naive Bayes Classifier has been correctly instanciated. \n")
+                               cat("The Categorical Na?ve Bayes Classifier has been correctly instanciated. \n")
                                cat("\n")
                                cat("\n")
                                cat("Please, follows these steps: \n")
@@ -62,9 +51,33 @@ CategoricalNB <- R6Class("CategoricalNB",
 
                            #' Convert continuous data into discrete data for the train data
                            #'
+                           #' This method preprocesses the training dataset for use with the Categorical Naive Bayes Classifier.
+                           #' It includes checks for data consistency and applies necessary transformations.
+                           #'
                            #' @param X The explanatory variables.
                            #' @param y The target variables.
-                           #' @return The discretized dataframe.
+                           #'
+                           #' @return A list containing the discretized variables and the y variable.
+                           #'
+                           #' @details The discretization of data is an important and essential step in the pre-processing of variables
+                           #'          continuous before the application of the naive Bayesian categorical model.
+                           #'          For this, we used the supervised discretization method based on the principle of Minimum
+                           #'          Description Length Principle (MDLP). The MDLP seeks to find the optimal discretization by minimizing the
+                           #'          length of the model description while maximizing the separation between classes.
+                           #'          It may happen, in certain cases, that the MDLP function does not find cutting terminals
+                           #'          and returns a single category. We have chosen to deal with this case by deleting these columnsas they do not add any information
+                           #'          for the classification.
+                           #'          The user will be notified when the summary is displayed.
+                           #'
+                           #' @examples
+                           #' Assuming `X_train` is your explanatory variables
+                           #' and `y_train` the target variable.
+                           #' catNB <- CategoricalNB$new()
+                           #' list_catNB <- catNB$preprocessing_train(X_train,y_train)
+                           #' X_train_d <- list_catNB[[1]]
+                           #' y_train <- list_catNB[[2]]
+                           #'
+                           #' @export
                            preprocessing_train = function(X, y){
 
                              if (all(sapply(X, is.numeric))) {
@@ -108,7 +121,20 @@ CategoricalNB <- R6Class("CategoricalNB",
                            #' Convert continuous data into discrete data for the predicted data
                            #'
                            #' @param X The explanatory variables.
+                           #'
                            #' @return The discretized dataframe.
+                           #'
+                           #' @details This function will discretize the continuous
+                           #'         explanatory columns according to the limits learnt
+                           #'         during the preprocessing on the training sample (preprocessing_train()).
+                           #'         Be careful, you must first preprocess your training sample.
+                           #'
+                           #' @examples
+                           #' Assuming `X_test` is your explanatory variables
+                           #'
+                           #' X_test_d <- catNB$preprocessing_test(X_test)
+                           #'
+                           #' @export
                            preprocessing_test = function(X){
 
                              if (all(sapply(X, is.numeric))) {
@@ -128,12 +154,26 @@ CategoricalNB <- R6Class("CategoricalNB",
                              return(X)
                            },
 
-                           #' Fit the model according to the given training data.
+                           #' Train Categorical Naive Bayes Classifier on training data
+                           #'
+                           #' This method trains the Categorical Naive Bayes Classifier using the provided training data.
                            #'
                            #' @param X_train The explanatory variables.
                            #' @param y_train The target variables.
                            #' @param lmbd Optional constant used for Laplace smoothing.
-                           #' @return The model.
+                           #'             By default 1.
+                           #'
+                           #'
+                           #' @return The method does not return anything but updates the model's internal state
+                           #'         with the training results, including feature statistics and performance metrics.
+                           #'
+                           #' @examples
+                           #' Assuming `X_train` is your preprocessed training dataset
+                           #' and `y_train`is your training target.
+                           #'
+                           #' catNB$fit(X_train, y_train)
+                           #'
+                           #' @export
                            fit = function(X_train, y_train, lmbd = 1) {
                              # Checks
                              if (is.factor(y_train) == FALSE) {
@@ -237,11 +277,24 @@ CategoricalNB <- R6Class("CategoricalNB",
                              cat("The training has been completed correctly!\n\n")
                            },
 
-                           #' Predict function.
+                           #' Predict Class Labels Using Categorical Naive Bayes Classifier
+                           #'
+                           #' This method predicts the class labels for each observation in the test dataset
+                           #' using the Categorical Naive Bayes Classifier.
                            #'
                            #' @param data_test The dataset on which we wish to predict.
+                           #'
                            #' @return The prediction as a dataframe.
-                           predict = function(data_test, n_cores = 4) {
+                           #'
+                           #'
+                           #' @examples
+                           #' Assuming `X_test` is your preprocessed test dataset
+                           #' Ensure that the model has been trained using fit method
+                           #'
+                           #' y_pred <- catnb$predict(X_test)
+                           #'
+                           #' @export
+                           predict = function(data_test) {
 
                              if (is.null(private$my_model)) {
                                stop("You need to run the 'fit' method first to get predictions.")
@@ -274,10 +327,21 @@ CategoricalNB <- R6Class("CategoricalNB",
                              return(as.factor(predicted_test))
                            },
 
-                           #' Predict log-probability estimates.
+                           #' Calculate Log Probabilities for Each Class
                            #'
-                           #' @param X The dataset on which we wish the probability prediction.
-                           #' @return The dataframe which contains the log-probabilities.
+                           #' This method calculates the logarithm of the probabilities for each class
+                           #' for each observation in the test dataset using the Categorical Naive Bayes Classifier.
+                           #'
+                           #' @param X A dataframe containing the preprocessed test set explanatory variables.
+                           #'
+                           #' @return A matrix of log probabilities, where each row corresponds to an observation
+                           #'         and each column to a class.
+                           #'
+                           #' @examples
+                           #' Assuming `X_test` is your preprocessed test dataset
+                           #' logs_probas <- catnb$predict_log_proba(X_test)
+                           #'
+                           #' @export
                            predict_log_proba = function(X) {
                              if (is.null(private$my_model)) {
                                stop("You need to train the model.")
@@ -288,10 +352,20 @@ CategoricalNB <- R6Class("CategoricalNB",
                              return(private$my_df_class_log_proba)
                            },
 
-                           #' Probability estimates.
+                           #' Calculate Posterior Probabilities for Each Class
                            #'
-                           #' @param X The dataset on which we wish the probability prediction.
+                           #' This method computes the posterior probabilities for each class
+                           #' for each observation in the test dataset using the Categorical Naive Bayes Classifier.
+                           #'
+                           #' @param X A dataframe containing the preprocessed test set explanatory variables.
+                           #'
                            #' @return The dataframe which contains the probabilities.
+                           #'
+                           #' @examples
+                           #' Assuming `X_test` is your preprocessed test dataset
+                           #' probas <- catnb$predict_proba(X_test)
+                           #'
+                           #' @export
                            predict_proba = function(X) {
                              if (is.null(private$my_model)) {
                                stop("You need to train the model.")
@@ -302,7 +376,26 @@ CategoricalNB <- R6Class("CategoricalNB",
                              return(exp(self$predict_log_proba(X)))
                            },
 
-                           #' Print function.
+                           #' Print Short Summary of Categorical Naive Bayes Model
+                           #'
+                           #' This method prints a short summary of the Categorical Naive Bayes model,
+                           #' including details about the target variable, sample size, and error rate on the training set.
+                           #'
+                           #' @details The method checks if the model has been trained and then prints
+                           #'          the number of classes in the target variable, the number of observations
+                           #'          in the sample, and the error rate on the training set along with its 95%
+                           #'          confidence interval. This provides a quick overview of the model's training performance.
+                           #'
+                           #' @examples
+                           #' # Assuming the Categorical Naive Bayes model has been trained
+                           #'
+                           #' catnb$print()
+                           #'
+                           #' # OR
+                           #'
+                           #' print(catnb)
+                           #'
+                           #' @export
                            print = function(){
                              if (is.null(private$my_model)) {
                                stop("You need to train the model.")
@@ -318,7 +411,29 @@ CategoricalNB <- R6Class("CategoricalNB",
                              cat("\n")
                            },
 
-                           #' Summary function.
+                           #' Detailed Summary of Categorical Naive Bayes Model
+                           #'
+                           #' This method displays a comprehensive summary of the Categorical Naive Bayes model,
+                           #' including details about the model's classes, features, performance metrics,
+                           #' and classification function.
+                           #'
+                           #' @details The method checks if the model has been trained.
+                           #'          It prints details such as the number of classes, class labels, number of features,
+                           #'          size of the training sample, prior probabilities of each class,
+                           #'          classifier performance metrics (confusion matrix, error rate, recall, precision) on the training dataset,
+                           #'          and the classification function (coefficients, intercepts)
+                           #'          and conditionnal distribution.
+                           #'
+                           #' @examples
+                           #' # Assuming the Categorical Naive Bayes model has been trained
+                           #'
+                           #' catnb$summary()
+                           #'
+                           #' # OR
+                           #'
+                           #' summary(catnb)
+                           #'
+                           #' @export
                            summary = function(){
                              if (is.null(private$my_model)) {
                                stop("You need to train the model.")
@@ -376,13 +491,32 @@ CategoricalNB <- R6Class("CategoricalNB",
                              cat("\n")
                            },
 
-                           #' Evaluate Performance of Categorical Naive Bayes Classifier.
+                           #' Evaluate Performance of Categorical Naive Bayes Classifier
+                           #'
+                           #' This method evaluates the performance of the Categorical Naive Bayes model on a test dataset.
+                           #' It calculates the error rate, recall, precision, and provides the confusion matrix.
                            #'
                            #' @param X_test A dataframe containing the test set explanatory variables.
                            #' @param y_test A vector containing the actual class labels of the test set.
+                           #' @param type A string specifying the prediction mode: 'comblin' (default) for linear
+                           #'        combination, 'proba' for probability-based classification.
                            #' @param verbose A boolean indicating whether to print detailed output (default is TRUE).
                            #'
-                           #' @return A list containing the confusion matrix, error rate, 95% confidence interval for the error rate, recall, and precision for each class.
+                           #' @return A list containing the confusion matrix, error rate, 95% confidence interval for the error rate,
+                           #'         recall, and precision for each class.
+                           #'
+                           #' @details The method checks if the model has been trained, predicts class labels for the test set,
+                           #'          constructs a confusion matrix, and calculates error rate, recall, and precision.
+                           #'          It also computes a 95% confidence interval for the error rate.
+                           #'          The results are returned as a list and can optionally be printed in detail.
+                           #'
+                           #' @examples
+                           #' # Assuming `X_test` and `y_test` are your test dataset and labels
+                           #' # Ensure that the model has been trained using fit method
+                           #'
+                           #' results <- catnb$score(X_test, y_test)
+                           #'
+                           #' @export
                            score = function(X_test, y_test, verbose=T){
                              # Check that the training has been carried out correctly
                              if (is.null(private$my_model)) {
@@ -451,10 +585,28 @@ CategoricalNB <- R6Class("CategoricalNB",
                              # Returns the list without displaying it
                              invisible(results)
                            },
-                           #' Visualization of the confusion matrix.
+
+                           #' Visualize Confusion Matrix for Categorical Naive Bayes Classifier
                            #'
-                           #' @param X The dataset X.
-                           #' @param y_test y_test.
+                           #' This method creates a visual representation of the confusion matrix for the test dataset
+                           #' using the Categorical Naive Bayes Classifier. It allows selection between class label prediction
+                           #' based on linear combination (`comblin`) or probabilities (`proba`).
+                           #'
+                           #' @param X A dataframe containing the test set explanatory variables.
+                           #' @param y_test A vector containing the actual class labels of the test set.
+                           #'
+                           #' @details The method first checks if the model has been trained.
+                           #'          It then predicts the class labels for the test set using the specified prediction type
+                           #'          and constructs a confusion matrix. This matrix is visualized using the `corrplot` package,
+                           #'          with a color gradient representing the frequency of each cell in the matrix. The method
+                           #'          handles missing classes by adding zero-filled columns to ensure a complete matrix.
+                           #'
+                           #' @examples
+                           #' # Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+                           #'
+                           #' catnb$plot_confusionmatrix(X_test, y_test)
+                           #'
+                           #' @export
                            plot_confusionmatrix = function(X, y_test) {
                              # On v?rifie que l'apprentissage a bien ?t? r?alis?
                              if (is.null(private$my_model)) {
@@ -472,6 +624,30 @@ CategoricalNB <- R6Class("CategoricalNB",
                              # Visualization with corrplot
                              corrplot(cm_plot, method="color", col = palette_col,  addCoef.col = 'black',  is.corr = FALSE,addgrid.col = 'white', tl.col = 'black',  tl.srt = 45, cl.pos = 'n', title="Matrice de Confusion", mar=c(2,0,2,0))
                            },
+
+
+                           #' Generate ROC Curve for Categorical Naive Bayes Classifier
+                           #'
+                           #' This method plots the Receiver Operating Characteristic (ROC) curve for the test dataset
+                           #' using the Categorical Naive Bayes Classifier. It handles both binary and multi-class scenarios.
+                           #'
+                           #' @param X A dataframe containing the preprocessed test set explanatory variables.
+                           #' @param y_test A vector containing the actual class labels of the test set.
+                           #' @param positive An optional parameter specifying the positive class label in a binary classification scenario.
+                           #'        It is required when the model is trained on a binary classification task.
+                           #'
+                           #' @details For multi-class classification (more than two classes), the method generates a One-vs-Rest (OVR)
+                           #'          multi-class ROC curve. For binary classification, it plots a ROC curve for the specified positive class.
+                           #'          The Area Under the Curve (AUC) is calculated for each class. The method checks if the model
+                           #'          has been trained before generating the ROC curve.
+                           #'
+                           #' @examples
+                           #' # Assuming `X_test` and `y_test` are your preprocessed test dataset and actual labels
+                           #' # This is the case of a binary classification
+                           #'
+                           #' catnb$plot_roccurve(X_test, y_test, positive = "YourPositiveClassLabel")
+                           #'
+                           #' @export
                            plot_roccurve = function(X, y_test, positive=NULL){
                              # Check that the training has been carried out correctly
                              if (is.null(private$my_model)) {
@@ -578,19 +754,33 @@ CategoricalNB <- R6Class("CategoricalNB",
                            }
                          ),
                          private = list(
+                           # The model
                            my_model = NA,
+                           # The model of the discretization
                            my_model_preprocess = NA,
+                           # Probabilities
                            my_df_class_log_proba = NA,
+                           # Number of observations
                            my_n_observations = NA,
+                           # Prediction of y values
                            my_y_predict = NA,
+                           # Confusion matrix
                            my_cm = NA,
+                           # Error rate
                            my_error = NA,
+                           # Lower bound of the confidence interval
                            my_li = NA,
+                           # Upper bound of the confidence interval
                            my_ls = NA,
+                           # Number of classes
                            my_k_class = NA,
+                           # Label of classes
                            my_class = NA,
+                           # Number of features
                            my_p = NA,
+                           # Model classification coefficients
                            my_class_func = NA,
+                           # Columns deleted after discretization.
                            my_vector_unique_value = NA
                          )
 )
