@@ -21,12 +21,11 @@ library(ScikitNB)
 ## Documentation
 In case of any difficulties using one of the function, you can refer to the documentation of the function with these two possibilities: 
 
-[REVOIR AU CAS OU] 
 
 ```R
-help(gnb$fit())
+help(GaussianNB)
 
-?gnb$fit()
+?GaussianNB
 ```
 
 ## Datasets 
