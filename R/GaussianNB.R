@@ -24,8 +24,7 @@ GaussianNB <- R6Class("GaussianNB",
                         #'
                         #' @export
                         initialize = function(n_cores=1, verbose=T) {
-
-
+                          library(caret)
                           n_cores_avail <- detectCores()
                           if (n_cores > n_cores_avail){
                             stop(paste0("Only ", n_cores_avail, " are available, please change the 'n_cores' argument"))

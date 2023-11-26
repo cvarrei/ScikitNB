@@ -160,6 +160,9 @@ CategoricalNB <- R6Class("CategoricalNB",
                                  cpt = cpt + 1
                                }
                              }
+
+                             X <- X %>%
+                              mutate_if(is.character, as.factor)
                              return(X)
                            },
 
