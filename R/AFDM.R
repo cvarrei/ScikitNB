@@ -51,6 +51,10 @@ AFDM <- R6Class("AFDM",
                   #'
                   #' @export
                   fit_transform = function(X_df, n_compon=NULL){
+
+                    X_df <- X_df %>%
+                      mutate_if(is.character, as.factor)
+                    X_df <- data.frame(X_df)
                     private$fit_value <- T
                     # Extract the training dataset and remove space in case.
                     colnames(X_df) <- gsub(" ", "_", colnames(X_df))
