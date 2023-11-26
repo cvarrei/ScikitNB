@@ -540,7 +540,7 @@ results <- bernoulli_nb$summary()
 
 The predict(), score() and the the visualization functions (plot_confusionmatrix() and plot_roccurve()) of the BernoulliNB follow the same pattern as the Gaussian NB
 
-#### Words with Highest Log Probabilities
+### Words with Highest Log Probabilities
 
 It is possible to display the top 10 tokens with the highest log_probability of a specific class from the target variable.
 
