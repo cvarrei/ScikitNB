@@ -131,53 +131,49 @@ summary(gnb)
 gnb$summary()
 ```
 
+This is an example on the "numerical" dataset.
 ```
-############### GAUSSIAN NAIVE BAYES CLASSIFIER ################ 
+################ GAUSSIAN NAIVE BAYES CLASSIFIER ################ 
 
 
 Number of classes:  2 
 Labels of classes: 0 1 
-Number of features:  13 
-Number of observations in the training sample:  303 
+Number of features:  8 
+Number of observations in the training sample:  538 
 Prior of each class: 
         0         1 
-0.4554455 0.5445545 
+0.6319703 0.3680297 
 
 
 CLASSIFIER PERFORMANCE -------------- 
 
        predict_train
 y_train   0   1
-      0 101  37
-      1  15 150
+      0 278  62
+      1  80 118
 
 
-Error Rate = 0.172 [0.129;0.214] at 95%CI
+Error Rate = 0.264 [0.227;0.301] at 95%CI
 Recall : 
    0    1 
-0.73 0.91 
+0.82 0.60 
 Precision : 
    0    1 
-0.87 0.80 
+0.78 0.66 
 
 
 CLASSIFICATION FUNCTIONS --------------
 
-          0          1         F(1,301) P-Value     Signif.
-Intercept -102.04727 -99.25775                             
-age       0.72055    0.6683    16.1167  7.52480e-05 **     
-sex       4.11622    2.80848   25.79219 6.67869e-07 **     
-cp        0.55127    1.58576   69.77227 2.46971e-15 **     
-trtbps    0.44484    0.42798   6.45817  1.15461e-02 **     
-chol      0.09384    0.09053   2.20298  1.38790e-01        
-fbs       1.25332    1.09588   0.23694  6.26778e-01        
-restecg   1.6504     2.18182   5.77721  1.68399e-02 **     
-thalachh  0.32143    0.36617   65.1201  1.69734e-14 **     
-exng      3.07326    0.77787   70.95244 1.52081e-15 **     
-oldpeak   1.43918    0.52922   68.55144 4.08535e-15 **     
-slp       3.47825    4.75211   40.90207 6.10161e-10 **     
-caa       1.31352    0.40941   54.55983 1.49154e-12 **     
-thall     7.67007    6.39669   40.4077  7.62488e-10 **     
+                         0         1         F(1,536)  P-Value     Signif.
+Intercept                -29.87554 -41.49773                              
+Pregnancies              0.2954    0.45203   33.13426  1.44890e-08 **     
+Glucose                  0.1402    0.17872   147.04945 4.47450e-30 **     
+BloodPressure            0.20298   0.20643   0.50945   4.75688e-01        
+SkinThickness            0.07769   0.08934   4.29713   3.86541e-02 **     
+Insulin                  0.00511   0.00732   8.05106   4.71991e-03 **     
+BMI                      0.56189   0.64662   48.46997  9.84424e-12 **     
+DiabetesPedigreeFunction 4.32151   5.3609    13.68443  2.38552e-04 **     
+Age                      0.24066   0.28896   37.50045  1.76872e-09 **     
 
 ** : Statistically significant at p-value < 0.05
 ```
