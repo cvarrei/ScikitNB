@@ -417,7 +417,7 @@ BernoulliNB <- R6Class("BernoulliNB",
       y_pred <- self$predict(X)
 
       # Construction of the confusion matrix
-      cm <- table(y_test, y_pred)
+      cm <- table(y, y_pred)
 
       ## CHECK IN CASE ONE CLASS IS NOT PREDICTED
       # Find unique classes in y_train and predict_train
