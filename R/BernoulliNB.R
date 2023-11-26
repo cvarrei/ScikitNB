@@ -209,12 +209,10 @@ BernoulliNB <- R6Class("BernoulliNB",
       } else if (private$fit_prior) {
 
         log_class_count = log(private$class_count)
-        # empirical prior, with sample_weight taken into account
+        # empirical prior
         private$class_log_prior <- log_class_count - log(sum(private$class_count))
 
       } else {
-        #Update the log priorities of the classes using an empirical approach
-        # taking into account the sampling weight.
         private$class_log_prior <- rep(-log(n_classes), n_classes)
       }
 
