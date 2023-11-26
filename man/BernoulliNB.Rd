@@ -2,11 +2,11 @@
 % Please edit documentation in R/BernoulliNB.R
 \name{BernoulliNB}
 \alias{BernoulliNB}
-\title{Initialize Bernoulli Naive Bayes Classifier}
+\title{Bernoulli Naive Bayes Classifier}
 \description{
-Initialize Bernoulli Naive Bayes Classifier
 
-Initialize Bernoulli Naive Bayes Classifier
+A R6 object to realize text classification using Bernoulli Naive Bayes Classifier.
+
 }
 \examples{
 

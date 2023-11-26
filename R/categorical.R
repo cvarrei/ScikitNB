@@ -25,7 +25,6 @@
 #'   \item{stalk-surface-below-ring:}{fibrous=f, scaly=y, silky=k, smooth=s}
 #'   \item{stalk-color-above-ring:}{brown=n, buff=b, cinnamon=c, gray=g, orange=o, pink=p, red=e, white=w, yellow=y}
 #'   \item{stalk-color-below-ring:}{brown=n, buff=b, cinnamon=c, gray=g, orange=o, pink=p, red=e, white=w, yellow=y}
-#'   \item{veil-type:}{partial=p, universal=u}
 #'   \item{veil-color:}{brown=n, orange=o, white=w, yellow=y}
 #'   \item{ring-number:}{none=n, one=o, two=t}
 #'   \item{ring-type:}{cobwebby=c, evanescent=e, flaring=f, large=l, none=n, pendant=p, sheathing=s, zone=z}

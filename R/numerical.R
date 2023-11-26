@@ -1,0 +1,29 @@
+#' Numerical dataset with Binary classification -  Pima Indians Diabetes Dataset
+#'
+#' This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases. 
+#' The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, based on certain diagnostic 
+#' measurements included in the dataset. Several constraints were placed on the selection of these instances from a larger database.
+#'  In particular, all patients here are females at least 21 years old of Pima Indian heritage.
+#'
+#' Smith, J.W., Everhart, J.E., Dickson, W.C., Knowler, W.C., & Johannes, R.S. (1988). 
+#' Using the ADAP learning algorithm to forecast the onset of diabetes mellitus. 
+#' In Proceedings of the Symposium on Computer Applications and Medical Care (pp. 261--265). IEEE Computer Society Press.
+#'
+#' @format A data frame (768 individuals and 9 variables) with the following columns :
+#' \describe{
+#'   \item{pregnancies}{Number of times pregnant}
+#'   \item{glucose}{Plasma glucose concentration a 2 hours in an oral glucose tolerance test}
+#'   \item{blood_pressure}{Diastolic blood pressure (mm Hg)}
+#'   \item{skin_thickness}{Triceps skin fold thickness (mm)}
+#'   \item{insulin}{2-Hour serum insulin (mu U/ml)}
+#'   \item{bmi}{Body mass index (weight in kg/(height in m)^2)}
+#'   \item{diabetes_pedigree_function}{Diabetes pedigree function}
+#'   \item{age}{Age (years)}
+#'   \item{outcome}{Target variable: "0" or "1")}
+#' }
+#' @docType data
+#' @usage data(numerical)
+#' @source \url{https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database}
+#' 
+#' 
+"numerical"

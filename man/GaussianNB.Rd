@@ -2,11 +2,9 @@
 % Please edit documentation in R/GaussianNB.R
 \name{GaussianNB}
 \alias{GaussianNB}
-\title{Initialize Gaussian Naive Bayes Classifier}
+\title{Gaussian Naive Bayes Classifier}
 \description{
-Initialize Gaussian Naive Bayes Classifier
-
-Initialize Gaussian Naive Bayes Classifier
+A R6 object to realize classification of numerical or mixed (numerical and qualitative) datasets using Gaussian Naive Bayes Classifier.
 }
 \examples{
 

@@ -52,7 +52,8 @@ AFDM <- R6Class("AFDM",
                   #' @export
                   fit_transform = function(X_df, n_compon=NULL){
                     private$fit_value <- T
-                    # Extract the training dataset
+                    # Extract the training dataset and remove space in case.
+                    colnames(X_df) <- gsub(" ", "_", colnames(X_df))
                     private$X <- X_df
 
                     # Extract the labels of the encoded one-hot categorical variables.
@@ -207,10 +208,13 @@ AFDM <- R6Class("AFDM",
                   #'
                   #' @export
                   coord_supplementaries = function(X_test){
-
+                    # Remove spaces in case
+                    X_train <- private$X
+                    colnames(X_train) <- gsub(" ", "_", colnames(X_train))
+                    colnames(X_test) <- gsub(" ", "_", colnames(X_test))
                     # Apply a one-hot encoding transformation
-                    dummy <- dummyVars(" ~ .", data=private$X)
-                    X_oc <- data.frame(predict(dummy, newdata=private$X))
+                    dummy <- dummyVars(" ~ .", data=X_train)
+                    X_oc <- data.frame(predict(dummy, newdata=X_train))
                     # Extract the mean for each variable after the one-hot encoding transformation
                     mean_X_oc = apply(X_oc, 2, mean)
                     # Extract the standard deviation for each variable after the one-hot encoding transformation

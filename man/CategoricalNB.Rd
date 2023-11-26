@@ -2,11 +2,10 @@
 % Please edit documentation in R/CategoricalNB.R
 \name{CategoricalNB}
 \alias{CategoricalNB}
-\title{Initialize Categorical Naive Bayes Classifier}
+\title{Categorical Naive Bayes Classifier}
 \description{
-Initialize Categorical Naive Bayes Classifier
 
-Initialize Categorical Naive Bayes Classifier
+A R6 object to realize classification of qualitative or mixed (numerical and qualitative) datasets using Categorical Naive Bayes Classifier.
 }
 \examples{
 

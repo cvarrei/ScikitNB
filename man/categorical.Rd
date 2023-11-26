@@ -40,16 +40,14 @@ The dataset contains the following variables:
   \item{stalk-surface-below-ring:}{fibrous=f, scaly=y, silky=k, smooth=s}
   \item{stalk-color-above-ring:}{brown=n, buff=b, cinnamon=c, gray=g, orange=o, pink=p, red=e, white=w, yellow=y}
   \item{stalk-color-below-ring:}{brown=n, buff=b, cinnamon=c, gray=g, orange=o, pink=p, red=e, white=w, yellow=y}
-  \item{veil-type:}{partial=p, universal=u}
   \item{veil-color:}{brown=n, orange=o, white=w, yellow=y}
   \item{ring-number:}{none=n, one=o, two=t}
   \item{ring-type:}{cobwebby=c, evanescent=e, flaring=f, large=l, none=n, pendant=p, sheathing=s, zone=z}
   \item{spore-print-color:}{black=k, brown=n, buff=b, chocolate=h, green=r, orange=o, purple=u, white=w, yellow=y}
   \item{population:}{abundant=a, clustered=c, numerous=n, scattered=s, several=v, solitary=y}
   \item{habitat:}{grasses=g, leaves=l, meadows=m, paths=p, urban=u, waste=w, woods=d}
+  \item{Class:}{(Target Variable) edible=e, poisonous=p}
 }
-
-Class Labels: edible=e, poisonous=p
 }
 \references{
 Audobon Society Field Guide (1981);

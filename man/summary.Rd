@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.R
 \name{summary}
 \alias{summary}
-\title{This function provides a summary for NaiveBayes R6 objects.}
+\title{Summary for NaiveBayes R6 objects.}
 \usage{
 summary(nb, ...)
 }
@@ -18,5 +18,5 @@ Summary of the Naive Bayes Classifier object.
 This function provides a summary for NaiveBayes R6 objects.
 }
 \details{
-R6 does not have a summary generic method, so we have to add a small S3 method function to call the summary function from R6 object.
+R6 does not have a summary generic method, so we have to add a small S3 method function to call the summary function from R6 objects.
 }

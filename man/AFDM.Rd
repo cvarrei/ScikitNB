@@ -2,11 +2,11 @@
 % Please edit documentation in R/AFDM.R
 \name{AFDM}
 \alias{AFDM}
-\title{Initialize Method for AFDM}
+\title{Factor analysis of mixed data}
 \description{
-Initialize Method for AFDM
 
-Initialize Method for AFDM
+A R6 object to realize Factor analysis of mixed data. It is used within the GaussianNB object to manage mixed (qualitative and quantitative) datasets.
+
 }
 \examples{
 
