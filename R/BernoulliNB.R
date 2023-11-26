@@ -603,7 +603,7 @@ BernoulliNB <- R6Class("BernoulliNB",
        print(round(private$precision_train,2))
        cat("\n")
        cat("\n")
-       cat("CLASSIFICATION FUNCTIONS --------------")
+       cat("LOG-PROBABILITIES --------------")
        cat("\n")
        cat("\n")
        cat("The 10 tokens with the highest log-proba :")

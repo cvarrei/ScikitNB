@@ -483,7 +483,7 @@ CategoricalNB <- R6Class("CategoricalNB",
 
                              cat("CLASSIFIER CHARACTERISTICS -------------------------------------")
                              cat("\n")
-                             cat("Model description-----------------------------------------------")
+                             cat("Model coefficients -----------------------------------------------")
                              cat("\n")
                              print(as.matrix(private$my_class_func), quote = FALSE)
                              cat("\n")
