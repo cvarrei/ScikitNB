@@ -12,7 +12,7 @@ A data frame of 5572 messages with the following columns:
 }
 }
 \source{
-[https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset]
+\url{https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset}
 }
 \usage{
 data(text)

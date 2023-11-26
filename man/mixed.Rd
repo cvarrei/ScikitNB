@@ -23,7 +23,7 @@ A data frame (215 individuals and 13 variables) with the following variables:
 }
 }
 \source{
-[https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement]
+\url{https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement}
 }
 \usage{
 data(mixed)
