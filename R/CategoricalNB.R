@@ -92,6 +92,8 @@ CategoricalNB <- R6Class("CategoricalNB",
                                warning("One or more explanatory variables have a constant value.")
                              }
 
+                             X <- data.frame(X)
+
                              # For each numerical column do the discretization
                              for (col in colnames(X)) {
                                if (is.numeric(X[,col])) {
@@ -140,6 +142,8 @@ CategoricalNB <- R6Class("CategoricalNB",
                              if (all(sapply(X, is.numeric))) {
                                stop("All the explanatory variables are numerical, better use the object 'GaussianNB'.")
                              }
+
+                            X <- data.frame(X)
 
                              # Deletion of single-valued columns
                              for(col in private$my_vector_unique_value){
@@ -642,7 +646,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                              # Creation of the confusion matrix between the actual and the predicted
                              y_pred <- self$predict(X)
 
-                             cm_plot <- table(y_pred, y_test)
+                             cm_plot <- table(y_test, y_pred)
 
                              # Color palette
                              palette_col <- c('#fbff82', '#f9ef8a', '#f6df90', '#f3cf97', '#efbf9c', '#ebafa1', '#e79fa6', '#e28eab', '#dc7daf', '#d66bb3')
