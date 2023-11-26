@@ -54,6 +54,8 @@ AFDM <- R6Class("AFDM",
                     private$fit_value <- T
                     # Extract the training dataset and remove space in case.
                     colnames(X_df) <- gsub(" ", "_", colnames(X_df))
+                    X_df <- X_df %>%
+                          mutate_if(is.character, as.factor)
                     private$X <- X_df
 
                     # Extract the labels of the encoded one-hot categorical variables.
