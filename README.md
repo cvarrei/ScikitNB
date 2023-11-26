@@ -28,18 +28,21 @@ help(GaussianNB)
 ?GaussianNB
 ```
 
+To view the documentation of the R6 class's functions, you must directly call it. Calling an R6 object function specifically ("gnb$fit(), assuming gnb <- GaussianNB$new()) will not work.
+
 ## Datasets 
 
-Three datasets are included within the package in order to test the different model:
-- "numerical" - Numerical dataset: xxxxx (link) <---- Gaussian Naïve Bayes Classifier
-- "categorical" - Categorical dataset: xxxxx (link) <---- Categorical Naïve Bayes Classifier
-- "mixed" - Mixed (Numerical + Categorical) dataset: xxxxx (link) <---- Categorical & Gaussian Naïve Bayes Classifier
-- "text" - Text Dataset <---- Bernouilli Naïve Bayes Classifier
+Five datasets are included within the package in order to test the different models. The link refers to the source of the dataset:
+- "numerical" - Numerical dataset ([Link](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)) <---- Gaussian Naïve Bayes Classifier
+- "categorical" - Categorical dataset ([Link](https://www.kaggle.com/datasets/uciml/mushroom-classification)) <---- Categorical Naïve Bayes Classifier
+- "mixed" - Mixed (Numerical + Categorical) dataset ([Link](https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement)) <---- Categorical & Gaussian Naïve Bayes Classifier
+- "mixed_big" - Mixed (Numerical + Categorical) dataset ([Link](https://www.kaggle.com/datasets/nehaprabhavalkar/av-healthcare-analytics-ii)) <---- Categorical & Gaussian Naïve Bayes Classifier
+- "text" - Text Dataset ([Link](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset)) <---- Bernouilli Naïve Bayes Classifier
 
 To import a dataset, use the function : 
 
 ```R
-dataset(mixed)
+data(mixed)
 ```
 
 ## GaussianNB: Gaussian Naïve Bayes Classifier
