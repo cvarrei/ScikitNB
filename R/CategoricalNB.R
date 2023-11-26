@@ -35,7 +35,7 @@ CategoricalNB <- R6Class("CategoricalNB",
                              private$my_vector_unique_value <- c()
 
                              if (verbose == TRUE){
-                               cat("The Categorical Na?ve Bayes Classifier has been correctly instanciated. \n")
+                               cat("The Categorical Naive Bayes Classifier has been correctly instanciated. \n")
                                cat("\n")
                                cat("\n")
                                cat("Please, follows these steps: \n")
